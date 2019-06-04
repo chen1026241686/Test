@@ -52,12 +52,14 @@ import static android.view.WindowManager.LayoutParams.TYPE_APPLICATION;
 /**
  * 我在master
  */
+
 /**
  * 我在developer
  */
 public class MainActivity extends AppCompatActivity {
 
 
+    private int aa = 1230;
     private ImageView image;
 
     Drawable drawable;
