@@ -50,6 +50,9 @@ import java.util.List;
 import static android.view.WindowManager.LayoutParams.TYPE_APPLICATION;
 
 /**
+ * 我在master
+ */
+/**
  * 我在developer
  */
 public class MainActivity extends AppCompatActivity {
@@ -117,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.e("FFF", "args[" + i + "]=" + args[i]);
                     }
                 }
+
                 return method.invoke(real, args);
             }
         });
