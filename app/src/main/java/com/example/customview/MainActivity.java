@@ -55,7 +55,7 @@ import static android.view.WindowManager.LayoutParams.TYPE_APPLICATION;
 public class MainActivity extends AppCompatActivity {
 
 
-    private ImageView image;
+    private ImageView imageaasd;
 
     Drawable drawable;
     Bitmap bitmap;
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void cc() {
-
+            Log.e("FFF", "cc");
         }
 
         @Override
