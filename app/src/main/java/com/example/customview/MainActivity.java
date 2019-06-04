@@ -50,16 +50,11 @@ import java.util.List;
 import static android.view.WindowManager.LayoutParams.TYPE_APPLICATION;
 
 /**
- * 我在master
- */
-
-/**
- * 我在developer
+ * 我得儿意的笑
  */
 public class MainActivity extends AppCompatActivity {
 
 
-    private int aa = 1230;
     private ImageView image;
 
     Drawable drawable;
