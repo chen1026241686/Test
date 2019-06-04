@@ -114,7 +114,6 @@ public class MainActivity extends AppCompatActivity {
                         Log.e("FFF", "args[" + i + "]=" + args[i]);
                     }
                 }
-
                 return method.invoke(real, args);
             }
         });
