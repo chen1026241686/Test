@@ -1,0 +1,66 @@
+apply plugin: 'com.android.application'
+
+def wx_pay_app_id = WX_PAY_APP_ID
+def new_customer_complaint = NEW_CUSTOMER_COMPLAINT
+
+android {
+    signingConfigs {
+        config {
+            keyAlias '普及科技'
+            keyPassword 'pujikeji'
+            storeFile file('D:/keystore/HaChiKeyStore.jks')
+            storePassword 'pujikeji'
+        }
+    }
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.example.customview"
+        minSdkVersion 22
+        targetSdkVersion 28
+        versionCode 106
+        versionName '1.2.3'
+        flavorDimensions "versionCode"
+    }
+    //构建类型，即使没有debug和release也会默认添加上
+    //其中除了debug模式，其它的模式都需要显示的指定签名信息，签名信息在signingConfigs里面
+    buildTypes {
+        debug {
+            //这些变量只会在debug的时候才有
+            buildConfigField 'int', 'HTTP_TYPE', BUILD_ENVIRONMENT
+            buildConfigField 'int', 'WX_PAY', wx_pay_app_id
+            buildConfigField 'boolean', 'NEW_CUSTOMER_COMPLAINT', new_customer_complaint
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        mytest {
+            //这些变量只会在mytest的时候才有
+            buildConfigField 'int', 'HTTP_TYPE', BUILD_ENVIRONMENT
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+    }
+    buildToolsVersion '27.0.3'
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    productFlavors {
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.5.0'
+    implementation 'com.google.dagger:dagger:2.22.1'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.22.1'
+    implementation 'com.android.support:design:28.0.0'
+}

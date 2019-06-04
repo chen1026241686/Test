@@ -1,0 +1,41 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+
+    <style name="DropDownDown">
+        <item name="android:windowEnterAnimation">@anim/grow_fade_in</item>
+        <item name="android:windowExitAnimation">@anim/shrink_fade_out</item>
+    </style>
+
+    <style name="DropDownUp">
+        <item name="android:windowEnterAnimation">@anim/grow_fade_in_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/shrink_fade_out_from_bottom</item>
+    </style>
+
+    <declare-styleable name="CircleProgress">
+
+        <attr name="startColor" format="color" />
+        <attr name="endColor" format="color" />
+        <attr name="rectangleText" format="string" />
+        <attr name="tipText" format="string" />
+        <attr name="centerText" format="string" />
+
+    </declare-styleable>
+
+    <declare-styleable name="ShadowLayout">
+        <attr name="sl_cornerRadius" format="dimension" />
+        <attr name="sl_shadowRadius" format="dimension" />
+        <attr name="sl_shadowColor" format="color" />
+        <attr name="sl_dx" format="dimension" />
+        <attr name="sl_dy" format="dimension" />
+    </declare-styleable>
+
+
+</resources>
