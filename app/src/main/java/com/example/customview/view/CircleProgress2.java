@@ -282,7 +282,7 @@ public class CircleProgress2 extends View {
         Matrix matrix = new Matrix();
         matrix.setRotate(startAngle, width / 2, bottomAreaHeight / 2);
         sweepGradient = new SweepGradient(width / 2, bottomAreaHeight / 2, new int[]{startColor, endColor, startColor}, new float[]{0.0f, sweepAngle / 360f, 1.0f});
-        //sweepGradient需要先旋转startAngle,否则颜色值开始显示是从0开始
+        //sweepGradient需要先旋转startAngle,否则颜色值开始显示是从角度0开始
         sweepGradient.setLocalMatrix(matrix);
         progressPaint.setShader(sweepGradient);
     }

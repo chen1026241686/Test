@@ -19,7 +19,23 @@ android {
         targetSdkVersion 28
         versionCode 106
         versionName '1.2.3'
-        flavorDimensions "versionCode"
+    }
+    flavorDimensions "money", "goods"
+    productFlavors {
+        companyAAA {
+            dimension "money"
+            buildConfigField "String", "FLAVOR_NAME", "\"channelBB\""
+        }
+        HHHHH {
+            dimension "goods"
+            buildConfigField "String", "FLAVOR_NAME", "\"channelAAA\""
+        }
+        ABBB {
+            dimension "money"
+            buildConfigField "String", "FLAVOR_NAME", "\"channelAA\""
+        }
+
+
     }
     //构建类型，即使没有debug和release也会默认添加上
     //其中除了debug模式，其它的模式都需要显示的指定签名信息，签名信息在signingConfigs里面
@@ -36,6 +52,7 @@ android {
             //这些变量只会在mytest的时候才有
             buildConfigField 'int', 'HTTP_TYPE', BUILD_ENVIRONMENT
             minifyEnabled false
+            debuggable true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {
@@ -44,13 +61,11 @@ android {
             signingConfig signingConfigs.config
         }
     }
-    buildToolsVersion '27.0.3'
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    productFlavors {
-    }
+
+
+    dynamicFeatures = []
+
+
 }
 
 dependencies {
@@ -63,4 +78,15 @@ dependencies {
     implementation 'com.google.dagger:dagger:2.22.1'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.22.1'
     implementation 'com.android.support:design:28.0.0'
+    implementation 'com.google.dagger:dagger:2.23.2'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.23.2'
+
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation 'com.blankj:utilcode:1.18.0'
+
+
+}
+repositories {
+    mavenCentral()
 }

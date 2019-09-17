@@ -1,50 +1,53 @@
 package com.example.customview;
 
 import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.app.Service;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.ColorFilter;
 import android.graphics.Matrix;
 import android.graphics.PixelFormat;
-import android.graphics.Rect;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.IBinder;
+import android.os.Looper;
+import android.os.Message;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import com.example.customview.fragment.SingleFragment;
+import com.example.customview.aidl.IMyAidlInterface;
 import com.example.customview.http.HttpUtils;
-import com.example.customview.interfaces.TestProxy;
-import com.example.customview.interfaces.TestProxy1;
-import com.example.customview.popwindow.FanclityTypePopWindow;
-import com.example.customview.view.RadarAnimationView;
+import com.example.customview.listview.AdapterViewHolder;
+import com.example.customview.listview.RecyclerAdapter;
+import com.example.customview.view.TouchView;
+import com.example.customview.viewgroup.FlowLayout;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
+import java.io.File;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static android.view.WindowManager.LayoutParams.TYPE_APPLICATION;
@@ -69,118 +72,248 @@ public class MainActivity extends AppCompatActivity {
 
     Matrix matrix;
     private View mContentView;
+    private String ab;
+    private TouchView touchview;
 
-    class TextProxyReal implements TestProxy, TestProxy1 {
+    private FlowLayout flowLayout;
+
+    private TextView tv;
 
 
-        public void myRealTest() {
-            Log.e("FFF", "myRealTest");
+    IMyAidlInterface mIRemoteService;
+    private ServiceConnection mConnection = new ServiceConnection() {
+        public void onServiceConnected(ComponentName className, IBinder service) {
+            // Following the example above for an AIDL interface,
+            // this gets an instance of the IRemoteInterface, which we can use to call on the service
+            mIRemoteService = IMyAidlInterface.Stub.asInterface(service);
+
+            try {
+                mIRemoteService.justPrintMessage("5566");
+            } catch (Exception e) {
+                Log.e("FFF", "exception=" + e.toString());
+            }
         }
 
-        @Override
-        public void aa() {
-
+        public void onServiceDisconnected(ComponentName className) {
+            mIRemoteService = null;
         }
+    };
 
-        @Override
-        public String bb(String args, String bb) {
-            return 45 + args + bb;
-        }
 
-        @Override
-        public void cc() {
-            Log.e("FFF", "cc");
-        }
-
-        @Override
-        public String dd(String args, String bb) {
-            return null;
-        }
-    }
+    View animation;
+    private DialogRecordFragment mXBottomSheetDialogFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+//        DaggerMainActivityComponent.create("123").inject(this);
+//        Log.e("FFF", "Inject onCreate=" + pot.show());
+//        Log.e("FFF", "Inject onCreate=" + pot.roseShow());
+
         mContentView = LayoutInflater.from(this).inflate(R.layout.activity_main, null);
         setContentView(mContentView);
 
-        btn = findViewById(R.id.aa);
+        touchview = findViewById(R.id.touchview);
 
-        TextProxyReal real = new TextProxyReal();
-        TestProxy bb = (TestProxy) Proxy.newProxyInstance(getClassLoader(), real.getClass().getInterfaces(), new InvocationHandler() {
-            @Override
-            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                Log.e("FFF", "method=" + method);
-                if (args != null && args.length > 0) {
-                    for (int i = 0; i < args.length; i++) {
-                        Log.e("FFF", "args[" + i + "]=" + args[i]);
-                    }
+        flowLayout = findViewById(R.id.flowLayout);
+
+        List<String> maps = new ArrayList<>();
+        for (int i = 0; i < 14; i++) {
+            maps.add(i + "F");
+        }
+
+        flowLayout.setFlowLayout(maps, null);
+
+        HandlerThread handlerThread = new HandlerThread("MainActivity");
+        handlerThread.start();
+
+
+        Intent intent = new Intent(this, MyService.class);
+        this.bindService(intent, mConnection, Service.BIND_AUTO_CREATE);
+
+        animation = findViewById(R.id.animation);
+
+
+        listView();
+
+
+        handler = new MusicPlayerHandler(this, Looper.getMainLooper());
+
+
+    }
+
+    private class MyRunnable implements Runnable {
+
+        @Override
+        public void run() {
+            Log.e("FFF", "MyRunnable--------------");
+        }
+    }
+
+    private MusicPlayerHandler handler;
+
+    private static final class MusicPlayerHandler extends Handler {
+        private final WeakReference<MainActivity> mService;
+
+
+        public MusicPlayerHandler(final MainActivity service, final Looper looper) {
+            super(looper);
+            mService = new WeakReference<>(service);
+        }
+
+
+        @Override
+        public void handleMessage(final Message msg) {
+            final MainActivity service = mService.get();
+            if (service == null) {
+                return;
+            }
+
+            synchronized (service) {
+                switch (msg.what) {
+                    default:
+                        break;
+                }
+            }
+        }
+    }
+
+    ObjectAnimator inObjectAnimator, outObjectAnimator, alphaAnimator;
+
+    AnimatorSet set = new AnimatorSet();
+
+
+    public void aaaa(View view) {
+
+
+        if (mXBottomSheetDialogFragment == null) {
+            mXBottomSheetDialogFragment = new DialogRecordFragment();
+        }
+        mXBottomSheetDialogFragment.show(getSupportFragmentManager(), "Dialog");
+        boolean a = true;
+        if (a)
+            return;
+
+
+        if (outObjectAnimator != null && outObjectAnimator.isRunning()) {
+            outObjectAnimator.cancel();
+        }
+
+        if (inObjectAnimator == null) {
+            inObjectAnimator = ObjectAnimator.ofFloat(animation, "translationY", -animation.getHeight(), 0);
+            inObjectAnimator.setDuration(500);
+            inObjectAnimator.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+
                 }
 
-                return method.invoke(real, args);
+                @Override
+                public void onAnimationEnd(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
+        }
+        if (alphaAnimator == null) {
+            alphaAnimator = ObjectAnimator.ofFloat(animation, "alpha", 0, 1);
+            alphaAnimator.setDuration(500);
+        }
+        set.playTogether(inObjectAnimator, alphaAnimator);
+    }
+
+    public void bbbb(View view) {
+
+        if (inObjectAnimator != null && inObjectAnimator.isRunning()) {
+            inObjectAnimator.cancel();
+        }
+
+        if (outObjectAnimator == null) {
+            outObjectAnimator = ObjectAnimator.ofFloat(animation, "translationY", 0, -animation.getHeight());
+            outObjectAnimator.setDuration(1500);
+            outObjectAnimator.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
+        }
+        outObjectAnimator.start();
+    }
+
+    private void listView() {
+        List<String> data = new ArrayList<>();
+        for (int i = 0; i < 109; i++) {
+            data.add("I am " + i);
+        }
+        RecyclerView recyclerView = findViewById(R.id.listview);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(new RecyclerAdapter<String>(this, data, R.layout.item_view) {
+            @Override
+            public AdapterViewHolder onCreateViewHolder(View itemView) {
+                return new AdapterViewHolder(itemView) {
+                    @Override
+                    public void bindView(Object o) {
+                        TextView name = this.itemView.findViewById(R.id.name);
+                        name.setText(o.toString());
+                    }
+                };
             }
         });
-        Log.e("FFF", "bb.bb()=" + bb.bb("参数", "hehe"));
-
-        Log.e("FFF", "isProxyClass=" + Proxy.isProxyClass(bb.getClass()));
-        Log.e("FFF", "isProxyClass=" + Proxy.isProxyClass(real.getClass()));
-
-//        int[] location = new int[2];
-//        mContentView.getRootView().getLocationOnScreen(location);
-//
-//
-//        Log.e("FFF", "location[0]=" + location[0]);
-//        Log.e("FFF", "location[1]=" + location[1]);
-
-//        initViews();
     }
+
 
     @Override
     protected void onResume() {
         super.onResume();
+//        multiplyRetrofit(null);
 
-
-        int[] location = new int[2];
-        mContentView.getLocationOnScreen(location);
-
-
-        Log.e("FFF", "location[0]=" + location[0]);
-        Log.e("FFF", "location[1]=" + location[1]);
-
-        final Rect displayFrame = new Rect();
-        View appRootView = btn.getRootView();
-        appRootView.getWindowVisibleDisplayFrame(displayFrame);
-
-        Log.e("FFF", String.format("left:%s,top:%s,right:%s,bottom:%s", displayFrame.left, displayFrame.top, displayFrame.right, displayFrame.bottom));
+//        int[] location = new int[2];
+//        mContentView.getLocationOnScreen(location);
+//
+//
+//        Log.e("FFF", "location[0]=" + location[0]);
+//        Log.e("FFF", "location[1]=" + location[1]);
+//
+//        final Rect displayFrame = new Rect();
+//        View appRootView = mContentView.getRootView();
+//        appRootView.getWindowVisibleDisplayFrame(displayFrame);
+//
+//        Log.e("FFF", String.format("left:%s,top:%s,right:%s,bottom:%s", displayFrame.left, displayFrame.top, displayFrame.right, displayFrame.bottom));
+//
+//
+//        ab = "";
 
     }
-
-
-    //    private void initViews() {
-//        final RadarAnimationView radarAnimationView =
-//                (RadarAnimationView) findViewById(R.id.radar_animation_view);
-//        radarAnimationView.setNumberOfItemsToDiscover(7);
-//        radarAnimationView.setCounterTextSizeDp(40);
-//        radarAnimationView.beginAnimation(new Animator.AnimatorListener() {
-//            @Override public void onAnimationStart(Animator animator) {
-//
-//            }
-//
-//            @Override public void onAnimationEnd(Animator animator) {
-//                Toast.makeText(MainActivity.this, "Discovered 7 items!", Toast.LENGTH_SHORT).show();
-//                radarAnimationView.beginAnimation(this);
-//            }
-//
-//            @Override public void onAnimationCancel(Animator animator) {
-//
-//            }
-//
-//            @Override public void onAnimationRepeat(Animator animator) {
-//
-//            }
-//        });
-//    }
 
 
     public void aa(View view) {
@@ -224,19 +357,67 @@ public class MainActivity extends AppCompatActivity {
 
         FloatingActionButton btn = new FloatingActionButton(this);
 
-        WindowManager wManager = (WindowManager) getSystemService(
-                Context.WINDOW_SERVICE);
+        WindowManager wManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
 
         wManager.addView(btn, layoutParams);
-
+        HashMap map;
     }
 
-    private void multiplyRetrofit() {
+    private void multiplyRetrofit(@NonNull String abcd) {
         HttpUtils.requestApi("https://api.jisuapi.com/");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        this.unbindService(mConnection);
+        Log.e("FFF", "MainActivity1---->onDestroy");
     }
+
+//    @Override
+//    public boolean dispatchTouchEvent(MotionEvent ev) {
+//        switch (ev.getActionMasked()) {
+//            case MotionEvent.ACTION_DOWN:
+//                Log.e("FFF", "MainActivity-->dispatchTouchEvent-->ACTION_DOWN");
+//                break;
+//            case MotionEvent.ACTION_CANCEL:
+//                Log.e("FFF", "MainActivity-->dispatchTouchEvent-->ACTION_CANCEL");
+//                break;
+//            case MotionEvent.ACTION_MOVE:
+//                Log.e("FFF", "MainActivity-->dispatchTouchEvent-->ACTION_MOVE");
+//                break;
+//            case MotionEvent.ACTION_UP:
+//                Log.e("FFF", "MainActivity-->dispatchTouchEvent-->ACTION_UP");
+//                break;
+//            default:
+//                Log.e("FFF", "MainActivity-->dispatchTouchEvent-->default");
+//                break;
+//        }
+////        return true;
+//        return super.dispatchTouchEvent(ev);
+//    }
+
+//    @Override
+//    public boolean onTouchEvent(MotionEvent event) {
+//        switch (event.getActionMasked()) {
+//            case MotionEvent.ACTION_DOWN:
+//                Log.e("FFF", "MainActivity-->onTouchEvent-->ACTION_DOWN");
+//                break;
+//            case MotionEvent.ACTION_CANCEL:
+//                Log.e("FFF", "MainActivity-->onTouchEvent-->ACTION_CANCEL");
+//                break;
+//            case MotionEvent.ACTION_MOVE:
+//                Log.e("FFF", "MainActivity-->onTouchEvent-->ACTION_MOVE");
+//                break;
+//            case MotionEvent.ACTION_UP:
+//                Log.e("FFF", "MainActivity-->onTouchEvent-->ACTION_UP");
+//                break;
+//            default:
+//                Log.e("FFF", "MainActivity-->onTouchEvent-->default");
+//                break;
+//        }
+//        return super.onTouchEvent(event);
+//    }
+
+
 }
