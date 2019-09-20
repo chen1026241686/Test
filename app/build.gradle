@@ -15,7 +15,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.customview"
-        minSdkVersion 22
+        minSdkVersion 18
         targetSdkVersion 28
         versionCode 106
         versionName '1.2.3'
@@ -64,7 +64,10 @@ android {
 
 
     dynamicFeatures = []
-
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }}
 
 }
 
@@ -84,6 +87,8 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.blankj:utilcode:1.18.0'
+
+    implementation 'com.yanzhenjie.permission:support:2.0.1'
 
 
 }

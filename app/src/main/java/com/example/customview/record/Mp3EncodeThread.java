@@ -1,7 +1,7 @@
-package com.example.customview.record.mp3;
+package com.example.customview.record;
 
 
-import com.example.customview.record.RecordConfig;
+import com.zlw.main.recorderlib.recorder.mp3.Mp3Encoder;
 
 import java.io.File;
 import java.io.FileNotFoundException;

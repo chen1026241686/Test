@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Test</string>
     <string name="title_dynamic_feature">Module Title</string>
+    <string name="inittime">00:38</string>
+    <string name="maxtime">01:00</string>
+    <string name="start_record">开始录音</string>
+    <string name="recording_audio">正在录音</string>
+    <string name="play_audio">播放</string>
+    <string name="pause_audio">暂停</string>
 </resources>

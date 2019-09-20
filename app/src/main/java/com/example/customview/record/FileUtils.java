@@ -12,10 +12,6 @@ import java.util.Date;
 
 public class FileUtils {
 
-    public static boolean isFile(final File file) {
-        return file != null && file.exists() && file.isFile();
-    }
-
     /**
      * Create a directory if it doesn't exist, otherwise do nothing.
      *
@@ -44,40 +40,5 @@ public class FileUtils {
             }
         }
         return true;
-    }
-
-    public static String getNowString(final java.text.DateFormat format) {
-        return millis2String(System.currentTimeMillis(), format);
-    }
-
-    /**
-     * Milliseconds to the formatted time string.
-     *
-     * @param millis The milliseconds.
-     * @param format The format.
-     * @return the formatted time string
-     */
-    public static String millis2String(final long millis, final java.text.DateFormat format) {
-        return format.format(new Date(millis));
-    }
-
-    /**
-     * Return whether the file exists.
-     *
-     * @param filePath The path of file.
-     * @return {@code true}: yes<br>{@code false}: no
-     */
-    public static boolean isFileExists(final String filePath) {
-        return isFileExists(getFileByPath(filePath));
-    }
-
-    /**
-     * Return whether the file exists.
-     *
-     * @param file The file.
-     * @return {@code true}: yes<br>{@code false}: no
-     */
-    public static boolean isFileExists(final File file) {
-        return file != null && file.exists();
     }
 }

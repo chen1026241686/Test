@@ -4,14 +4,13 @@ import android.media.AudioFormat;
 import android.os.Environment;
 
 import java.io.Serializable;
-import java.util.Locale;
 
 /**
  * @author ChenYasheng
  * @date 2019/9/17
  * @Description 音频录制配置参数
  * <p>
- * 1)可以设置录制格式：mp3,wav,pcm。详细看{@link RecordFormat}
+ * 1)录制格式：mp3
  * 2)可以设置录制的采样率，详细看{@link RecordRate}
  * 3)可以设置音频位宽，详细看{@link RecordBit}
  */
@@ -30,10 +29,21 @@ public class RecordConfig implements Serializable {
      */
     private int encodingConfig = AudioFormat.ENCODING_PCM_16BIT;
 
+
+    /**
+     * 最大录制时间（毫秒）
+     */
+    private int recordMaxTime = 60*1000;
+
     /**
      * 采样率
      */
     private int sampleRate = 16000;
+
+
+
+
+
 
     /*
      * 录音文件存放路径， TODO
@@ -41,6 +51,7 @@ public class RecordConfig implements Serializable {
     private String recordDir = Environment.getExternalStorageDirectory() + "/hachi/recordAudio";
 
     public RecordConfig() {
+        FileUtils.createOrExistsDir(recordDir);
     }
 
     public String getRecordDir() {
@@ -48,6 +59,7 @@ public class RecordConfig implements Serializable {
     }
 
     public void setRecordDir(String recordDir) {
+        FileUtils.createOrExistsDir(recordDir);
         this.recordDir = recordDir;
     }
 
@@ -60,7 +72,6 @@ public class RecordConfig implements Serializable {
         if (format == RecordFormat.MP3) {//mp3后期转换
             return 16;
         }
-
         if (encodingConfig == AudioFormat.ENCODING_PCM_8BIT) {
             return 8;
         } else if (encodingConfig == AudioFormat.ENCODING_PCM_16BIT) {
@@ -122,8 +133,8 @@ public class RecordConfig implements Serializable {
         return encodingConfig;
     }
 
-    public RecordConfig setEncodingConfig(int encodingConfig) {
-        this.encodingConfig = encodingConfig;
+    public RecordConfig setEncodingConfig(RecordBit encodingConfig) {
+        this.encodingConfig = encodingConfig.getBit();
         return this;
     }
 
@@ -131,11 +142,18 @@ public class RecordConfig implements Serializable {
         return sampleRate;
     }
 
-    public RecordConfig setSampleRate(int sampleRate) {
-        this.sampleRate = sampleRate;
+    public RecordConfig setSampleRate(RecordRate sampleRate) {
+        this.sampleRate = sampleRate.getRate();
         return this;
     }
 
+    public int getRecordMaxTime() {
+        return recordMaxTime;
+    }
+
+    public void setRecordMaxTime(int recordMaxTime) {
+        this.recordMaxTime = recordMaxTime;
+    }
 
     /**
      * 音频录制支持的格式
@@ -143,15 +161,7 @@ public class RecordConfig implements Serializable {
     public enum RecordFormat {/**
      * mp3格式
      */
-    MP3(".mp3"),
-        /**
-         * wav格式
-         */
-        WAV(".wav"),
-        /**
-         * pcm格式
-         */
-        PCM(".pcm");
+    MP3(".mp3");
 
         private String extension;
 

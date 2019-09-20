@@ -32,7 +32,7 @@ import com.example.customview.R;
  * <p>
  * 4.paint.getFontSpacing();获取推荐的行距，这个是用来绘制多行文字的时候，可以在换行的时候给 y 坐标加上这个值来下移文字
  * <p>
- * 5.getTextBounds(String text, int start, int end, Rect bounds)获取文字显示的区域
+ * 5.getTextBounds(String text, int play_pause, int end, Rect bounds)获取文字显示的区域
  * <p>
  * 注意getTextBounds和measureText区别,前面的Rect.right-rect.left是文字的显示的宽度，而measureText是文字占用的宽度
  * 所以measureText获得的宽度肯定会大于rect.right-rect.left

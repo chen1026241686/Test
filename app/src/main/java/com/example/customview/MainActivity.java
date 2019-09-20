@@ -3,6 +3,7 @@ package com.example.customview;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.AlertDialog;
 import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
@@ -43,6 +44,8 @@ import com.example.customview.listview.AdapterViewHolder;
 import com.example.customview.listview.RecyclerAdapter;
 import com.example.customview.view.TouchView;
 import com.example.customview.viewgroup.FlowLayout;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.runtime.Permission;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -140,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
 
         handler = new MusicPlayerHandler(this, Looper.getMainLooper());
 
-
+        AndPermission.with(this).runtime().permission(new String[]{Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE, Permission.RECORD_AUDIO}).start();
     }
 
     private class MyRunnable implements Runnable {
@@ -149,6 +152,19 @@ public class MainActivity extends AppCompatActivity {
         public void run() {
             Log.e("FFF", "MyRunnable--------------");
         }
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+//        finish();
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 
     private MusicPlayerHandler handler;
@@ -191,6 +207,8 @@ public class MainActivity extends AppCompatActivity {
             mXBottomSheetDialogFragment = new DialogRecordFragment();
         }
         mXBottomSheetDialogFragment.show(getSupportFragmentManager(), "Dialog");
+
+
         boolean a = true;
         if (a)
             return;
@@ -295,6 +313,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+
 //        multiplyRetrofit(null);
 
 //        int[] location = new int[2];

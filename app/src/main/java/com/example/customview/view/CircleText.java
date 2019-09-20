@@ -29,7 +29,7 @@ public class CircleText extends View {
      */
     private final int DEFAULT_TEXT_COLOR = 0xff000000;
 
-    private final int DEFAUTL_TEXT_SIZE = 40, DEFAULT_TEXT_CIRCLR_PADDING = 20;
+    private final int DEFAUTL_TEXT_SIZE = 26;
 
 
     /**
@@ -93,7 +93,7 @@ public class CircleText extends View {
         circlePaint = new Paint();
         circlePaint.setAntiAlias(true);
         circlePaint.setColor(circleColor);
-        circlePaint.setStrokeWidth(3);
+        circlePaint.setStrokeWidth(1);
         circlePaint.setStyle(Paint.Style.STROKE);
 
         textRect = new Rect();
@@ -142,18 +142,17 @@ public class CircleText extends View {
             return;
         }
         textPaint.getTextBounds(textContent, 0, textContent.length(), textRect);
-        int textLength = textRect.right - textRect.left;
         int textHeight = textRect.bottom - textRect.top;
         //半径是最小的那个。
-        radius = Math.min(textLength, Math.min(height, width)) / 2;
+        radius = Math.min(height, width) / 2;
         //（加上padding可能会超了边界，这里没有做处理）
-        canvas.drawCircle(width / 2, height / 2, radius + DEFAULT_TEXT_CIRCLR_PADDING, circlePaint);
+        canvas.drawCircle(width / 2, height / 2, radius, circlePaint);
 
-        circleRect.left = width / 2 - (radius + DEFAULT_TEXT_CIRCLR_PADDING);
-        circleRect.top = height / 2 - (radius + DEFAULT_TEXT_CIRCLR_PADDING);
-        circleRect.right = width / 2 + (radius + DEFAULT_TEXT_CIRCLR_PADDING);
-        circleRect.bottom = height / 2 + (radius + DEFAULT_TEXT_CIRCLR_PADDING);
-        canvas.drawText(textContent, width / 2, height / 2+textHeight/2, textPaint);
+        circleRect.left = width / 2 - (radius);
+        circleRect.top = height / 2 - (radius);
+        circleRect.right = width / 2 + (radius);
+        circleRect.bottom = height / 2 + (radius);
+        canvas.drawText(textContent, width / 2, height / 2 + textHeight / 2, textPaint);
     }
 
 
