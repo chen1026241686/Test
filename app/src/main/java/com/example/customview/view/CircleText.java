@@ -107,8 +107,6 @@ public class CircleText extends View {
         super.onSizeChanged(w, h, oldw, oldh);
         height = h;
         width = w;
-        Log.e("FFF", "height=" + h);
-        Log.e("FFF", "width=" + w);
     }
 
 
