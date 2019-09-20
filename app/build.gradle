@@ -90,6 +90,8 @@ dependencies {
 
     implementation 'com.yanzhenjie.permission:support:2.0.1'
 
+    compile 'com.zhy:autolayout:1.4.5'
+
 
 }
 repositories {

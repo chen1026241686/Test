@@ -48,17 +48,24 @@
         android:gravity="center_vertical">
 
 
-        <com.example.customview.view.CircleText
-            android:id="@+id/recordRestart"
+        <LinearLayout
             android:layout_width="80px"
             android:layout_height="80px"
             android:layout_centerVertical="true"
             android:layout_marginRight="108px"
-            android:layout_toLeftOf="@id/imgRecord"
-            app:circleColor="#ffe02f21"
-            app:textColor="#ffe02f21"
-            app:textContent="重录"
-            app:textSize="26px" />
+            android:layout_toLeftOf="@id/imgRecord">
+
+            <com.example.customview.view.CircleText
+                android:id="@+id/recordRestart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:circleColor="#ffe02f21"
+                app:textColor="#ffe02f21"
+                app:textContent="重录"
+                app:textSize="26px" />
+
+        </LinearLayout>
+
 
         <ImageView
             android:id="@+id/imgRecord"
@@ -69,17 +76,24 @@
             android:scaleType="center" />
 
 
-        <com.example.customview.view.CircleText
-            android:id="@+id/recordDone"
+        <LinearLayout
             android:layout_width="80px"
             android:layout_height="80px"
             android:layout_centerVertical="true"
             android:layout_marginLeft="108px"
-            android:layout_toRightOf="@id/imgRecord"
-            app:circleColor="#ff02a348"
-            app:textColor="#ff00a947"
-            app:textContent="完成"
-            app:textSize="26px" />
+            android:layout_toRightOf="@id/imgRecord">
+
+            <com.example.customview.view.CircleText
+                android:id="@+id/recordDone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:circleColor="#ff02a348"
+                app:textColor="#ff00a947"
+                app:textContent="完成"
+                app:textSize="26px" />
+
+        </LinearLayout>
+
 
     </RelativeLayout>
 

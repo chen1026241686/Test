@@ -46,6 +46,7 @@ import com.example.customview.view.TouchView;
 import com.example.customview.viewgroup.FlowLayout;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.runtime.Permission;
+import com.zhy.autolayout.AutoLayoutActivity;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -58,7 +59,7 @@ import static android.view.WindowManager.LayoutParams.TYPE_APPLICATION;
 /**
  * 我得儿意的笑
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AutoLayoutActivity {
 
 
     private ImageView imageaasd;
