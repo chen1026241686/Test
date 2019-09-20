@@ -7,10 +7,12 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.customview.R;
+import com.zhy.autolayout.utils.AutoUtils;
 
 /**
  * @author ChenYasheng
@@ -86,7 +88,7 @@ public class CircleText extends View {
         textPaint.setAntiAlias(true);
         textPaint.setColor(textColor);
         textPaint.setStyle(Paint.Style.FILL);
-        textPaint.setTextSize(textSize);
+        textPaint.setTextSize(AutoUtils.getPercentHeightSizeBigger(textSize));
         textPaint.setTextAlign(Paint.Align.CENTER);
 
 
@@ -105,6 +107,8 @@ public class CircleText extends View {
         super.onSizeChanged(w, h, oldw, oldh);
         height = h;
         width = w;
+        Log.e("FFF", "height=" + h);
+        Log.e("FFF", "width=" + w);
     }
 
 
