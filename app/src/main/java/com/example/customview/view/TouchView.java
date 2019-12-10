@@ -101,7 +101,7 @@ public class TouchView extends android.support.v7.widget.AppCompatTextView {
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
-        Log.e("FFF", "onLayout=" + "[" + left + "," + top + "," + right + "," + bottom + "]");
+        Log.e("FFF", "onLayout=" + "[" + left + "," + top + "," + right + "," + bottom + "]ddddddd");
     }
 
     @Override
