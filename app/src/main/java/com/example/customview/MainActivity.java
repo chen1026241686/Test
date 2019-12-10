@@ -105,7 +105,7 @@ public class MainActivity extends AutoLayoutActivity {
     };
 
 
-    //如果全世界我也可以忘记
+    //如果全世界我也可以忘记,至少还有你
 
     View animation;
     private DialogRecordFragment mXBottomSheetDialogFragment;
