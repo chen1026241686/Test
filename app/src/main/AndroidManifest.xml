@@ -9,11 +9,15 @@
 
     <application
         android:allowBackup="true"
-        android:hardwareAccelerated="true"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Main5Activity">
+
+        </activity>
+
         <meta-data
             android:name="design_width"
             android:value="750" />
@@ -26,8 +30,9 @@
         <meta-data
             android:name="design_height_2"
             android:value="1500" />
-        <activity android:name=".MainActivity4"></activity>
-        <activity android:name=".MainActivity3" />
+
+        <activity android:name=".MainActivity4" />
+        <activity android:name=".MainActivity"></activity>
         <activity
             android:name=".MainActivity2"
             android:launchMode="singleTask"
@@ -40,13 +45,14 @@
             android:process=":myService" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".MainActivity3"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
     </application>
 

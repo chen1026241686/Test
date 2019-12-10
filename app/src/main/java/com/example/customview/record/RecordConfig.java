@@ -33,17 +33,12 @@ public class RecordConfig implements Serializable {
     /**
      * 最大录制时间（毫秒）
      */
-    private int recordMaxTime = 60*1000;
+    private int recordMaxTime = 60 * 1000;
 
     /**
      * 采样率
      */
     private int sampleRate = 16000;
-
-
-
-
-
 
     /*
      * 录音文件存放路径， TODO

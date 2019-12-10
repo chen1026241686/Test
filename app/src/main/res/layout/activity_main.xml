@@ -34,9 +34,40 @@
     <!--<com.example.customview.view.SunEat2-->
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="match_parent" />-->
+
     <!--<com.example.customview.view.Sun-->
     <!--android:layout_width="match_parent"-->
+    <!--android:layout_weight="1"-->
     <!--android:layout_height="match_parent" />-->
+
+
+    <!--<com.example.customview.view.Sun-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_weight="1" />-->
+
+    <!--<com.example.customview.view.SunEat-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_weight="1" />-->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="animation"
+        android:text="animation" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="animation"
+        android:text="animation" />
+
+    <com.example.customview.view.RippleImageView
+        android:id="@+id/sundog"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:layout_weight="1" />
+
 
     <!--<com.example.customview.view.RadarAnimationView-->
     <!--android:id="@+id/radar_animation_view"-->
@@ -59,19 +90,22 @@
     <com.example.customview.viewgroup.FlowLayout
         android:id="@+id/flowLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="aaaa"
-        android:text="in" />
+        android:text="in"
+        android:visibility="gone" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="bbbb"
-        android:text="out" />
+        android:text="out"
+        android:visibility="gone" />
 
     <com.example.customview.viewgroup.MyLinearLayout
         android:layout_width="500px"
@@ -92,7 +126,8 @@
         android:id="@+id/animation"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@android:color/holo_blue_dark" />
+        android:background="@android:color/holo_blue_dark"
+        android:visibility="gone" />
 
 
 </LinearLayout>

@@ -1,15 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity3">
+    android:background="#f8f8f8"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="ac3"
-        android:text="Activity3333333333333" />
+
+    <com.example.customview.viewgroup.MyScrollView2
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/holo_red_light"
+        android:padding="40px">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="9000px"
+            android:background="@android:color/holo_green_light"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="2000px"
+                android:text="CCCCCCCCC" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@android:color/holo_blue_dark"
+                android:minHeight="300px"
+                android:text="AAAAAAAAAAAAAAA1111111111111" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@android:color/holo_blue_dark"
+                android:minHeight="300px"
+                android:text="AAAAAAAAAAAAAAA2222222222222" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@android:color/holo_blue_dark"
+                android:minHeight="300px"
+                android:text="AAAAAAAAAAAAAAA3333333333333" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@android:color/holo_blue_dark"
+                android:minHeight="300px"
+                android:text="AAAAAAAAAAAAAAA4444444444444" />
+
+            <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@android:color/holo_blue_dark"-->
+            <!--android:minHeight="300px"-->
+            <!--android:text="AAAAAAAAAAAAAAA2222222222222" />-->
+
+            <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@android:color/holo_blue_dark"-->
+            <!--android:minHeight="300px"-->
+            <!--android:text="AAAAAAAAAAAAAAA3333333333333" />-->
+
+            <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@android:color/holo_blue_dark"-->
+            <!--android:minHeight="300px"-->
+            <!--android:text="AAAAAAAAAAAAAAA4444444444444" />-->
+
+
+        </LinearLayout>
+    </com.example.customview.viewgroup.MyScrollView2>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

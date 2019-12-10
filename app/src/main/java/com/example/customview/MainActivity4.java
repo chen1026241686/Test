@@ -8,6 +8,9 @@ import android.view.View;
 
 public class MainActivity4 extends AppCompatActivity {
 
+
+    /*package*/public static  String aa="asd";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

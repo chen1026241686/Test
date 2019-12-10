@@ -1,58 +1,59 @@
 package com.example.javatest.myreflex;
 
+import com.example.javatest.myreflex.annotation.AnnotationMe;
+import com.example.javatest.myreflex.annotation.AnnotationTest;
 import com.example.javatest.myreflex.model.Cat;
 import com.example.javatest.myreflex.model.interfaces.Fly;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.GenericArrayType;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
+import java.lang.reflect.WildcardType;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 1.继承父类里有private,public,static
  * 2.实现接口
  * 3.父类里面有内部类、静态内部类
  */
-public class ReflexDemo {
-    public static class Person {
-
-        static {
-            System.out.println("Person--->" + Person.class.getCanonicalName());
-        }
-
-        public void printAnimal() {
+public class ReflexDemo<T> implements Comparable {
 
 
-        }
+    Map<String, String> map;
+
+    public static void main(String[] args) throws Exception {
+
+
+        MyClassLoader myClassLoader = new MyClassLoader();
+
+        System.out.println(ReflexDemo.class.getClassLoader().getClass().getName());
+
+
     }
 
-    public static void main(String args[]) {
-
-        try {
-        } catch (Exception e) {
-            System.out.println("catchException----->" + e.toString());
-        }
+    public <T> void testType(List<String> a1, List<ArrayList<String>> a2, List<T> a3, List<?> a4, List<ArrayList<String>[]> a5, Map<String, Integer> a6) {
+    }
 
 
-        Method[] methods = Cat.class.getMethods();
+    public static void delete(List<?> a) {
 
+    }
 
-
-
-        if (methods != null && methods.length > 0) {
-            for (Method method : methods) {
-                System.out.println("CatMethod--->" + method.getName());
-            }
-        }
-
-
-
-
-
-//        methods = Cat.Cat_2.class.getMethods();
-//        if (methods != null && methods.length > 0) {
-//            for (Method method : methods) {
-//                System.out.println("Cat.Cat_2Method--->" + method.getName());
-//            }
-//        }
-
+    @Override
+    public int compareTo(Object o) {
+        return 0;
     }
 }

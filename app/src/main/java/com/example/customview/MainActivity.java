@@ -3,27 +3,28 @@ package com.example.customview;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.app.AlertDialog;
+import android.app.Activity;
 import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -42,13 +43,13 @@ import com.example.customview.aidl.IMyAidlInterface;
 import com.example.customview.http.HttpUtils;
 import com.example.customview.listview.AdapterViewHolder;
 import com.example.customview.listview.RecyclerAdapter;
+import com.example.customview.view.RippleImageView;
 import com.example.customview.view.TouchView;
 import com.example.customview.viewgroup.FlowLayout;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.runtime.Permission;
 import com.zhy.autolayout.AutoLayoutActivity;
 
-import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -107,6 +108,7 @@ public class MainActivity extends AutoLayoutActivity {
     View animation;
     private DialogRecordFragment mXBottomSheetDialogFragment;
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,6 +147,35 @@ public class MainActivity extends AutoLayoutActivity {
         handler = new MusicPlayerHandler(this, Looper.getMainLooper());
 
         AndPermission.with(this).runtime().permission(new String[]{Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE, Permission.RECORD_AUDIO}).start();
+
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPreferredConfig = Bitmap.Config.ARGB_4444;
+
+        Bitmap mdpi = BitmapFactory.decodeResource(getResources(), R.drawable.aaa, options);
+        Bitmap hdpi = BitmapFactory.decodeResource(getResources(), R.drawable.bbb);
+        Bitmap xhdpi = BitmapFactory.decodeResource(getResources(), R.drawable.ccc);
+        Bitmap xxhdpi = BitmapFactory.decodeResource(getResources(), R.drawable.ddd);
+        Bitmap xxxhdpi = BitmapFactory.decodeResource(getResources(), R.drawable.eee);
+
+        Log.e("FFF", "mdpi------>" + mdpi.getWidth());
+        Log.e("FFF", "hdpi------>" + hdpi.getWidth());
+        Log.e("FFF", "xhdpi----->" + xhdpi.getWidth());
+        Log.e("FFF", "xxhdpi---->" + xxhdpi.getWidth());
+        Log.e("FFF", "xxxhdpi--->" + xxxhdpi.getWidth());
+
+
+        Log.e("FFF", "getAllocationByteCount--->" + mdpi.getAllocationByteCount());
+        Log.e("FFF", "getByteCount------------->" + mdpi.getByteCount());
+        Log.e("FFF", "getRowBytes-------------->" + mdpi.getRowBytes());
+        Log.e("FFF", "getRowBytes*height------->" + mdpi.getRowBytes() * mdpi.getHeight());
+        Log.e("FFF", "getWidth------->" + mdpi.getWidth() + "  getHeight----->" + mdpi.getHeight());
+        Log.e("FFF", "width*height*4----------->" + mdpi.getWidth() * mdpi.getHeight() * 4);
+
+
+
+
+
     }
 
     private class MyRunnable implements Runnable {
@@ -200,6 +231,13 @@ public class MainActivity extends AutoLayoutActivity {
 
     AnimatorSet set = new AnimatorSet();
 
+
+    public void animation(View view) {
+        RippleImageView sunDog = findViewById(R.id.sundog);
+        sunDog.startAnimation();
+
+        startActivity(new Intent(this, MainActivity3.class));
+    }
 
     public void aaaa(View view) {
 

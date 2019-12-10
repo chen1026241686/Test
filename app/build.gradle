@@ -15,7 +15,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.customview"
-        minSdkVersion 18
+        minSdkVersion 23
         targetSdkVersion 28
         versionCode 106
         versionName '1.2.3'
@@ -67,7 +67,8 @@ android {
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
-        }}
+        }
+    }
 
 }
 
@@ -90,7 +91,8 @@ dependencies {
 
     implementation 'com.yanzhenjie.permission:support:2.0.1'
 
-    compile 'com.zhy:autolayout:1.4.5'
+    implementation 'com.zhy:autolayout:1.4.5'
+    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
 
 
 }

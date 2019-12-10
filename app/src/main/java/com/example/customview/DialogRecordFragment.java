@@ -26,22 +26,26 @@ import butterknife.Unbinder;
 /**
  * @author ChenYasheng
  * @date 2019/9/16
- * @Description
+ * @Description 底部弹出来的录制音频Fragment，弹出来之前需要请求录音权限
  */
 public class DialogRecordFragment extends BottomSheetDialogFragment {
 
 
-    //TODO 退出界面的时候需要停止录音和停止播放,注意顺序
-    //TODO 需要屏幕适配
-
-    private int recordTotalTime = 10 * 1000;
+    /**
+     * 最大录制时间
+     */
+    private int recordTotalTime = 60 * 1000;
 
     private RecordConfig config = new RecordConfig();
 
     {
+        //mp3格式
         config.setFormat(RecordConfig.RecordFormat.MP3);
+        //采样率
         config.setSampleRate(RecordConfig.RecordRate.RB16K);
+        //位宽
         config.setEncodingConfig(RecordConfig.RecordBit.SIXTEEN_BIT);
+        //最大记录时长
         config.setRecordMaxTime(recordTotalTime);
     }
 
@@ -129,6 +133,8 @@ public class DialogRecordFragment extends BottomSheetDialogFragment {
                 RecordHelper.getInstance().recordReset();
                 break;
             case R.id.recordDone:
+                //TODO
+                this.dismiss();
                 break;
             default:
                 break;
