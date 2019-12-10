@@ -105,6 +105,11 @@ public class MainActivity extends AppCompatActivity {
         mContentView = LayoutInflater.from(this).inflate(R.layout.activity_main, null);
         setContentView(mContentView);
 
+
+
+        ///master
+
+
         btn = findViewById(R.id.aa);
 
         TextProxyReal real = new TextProxyReal();
