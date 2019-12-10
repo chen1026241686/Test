@@ -48,6 +48,7 @@ public class MainActivity3 extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //提交一次才有tag?
 
         ClassLoader classLoader;
 
