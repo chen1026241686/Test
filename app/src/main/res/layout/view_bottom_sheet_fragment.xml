@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="57px"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/slash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="/"
+            android:textColor="#ff505050"
+            android:textSize="26px" />
+
+        <TextView
+            android:id="@+id/tvRecordedTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/slash"
+            android:text="@string/inittime"
+            android:textColor="#ffe02f21"
+            android:textSize="26px" />
+
+        <TextView
+            android:id="@+id/tvRecordMax"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/slash"
+            android:text="@string/maxtime"
+            android:textColor="#ff505050"
+            android:textSize="26px" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44px"
+        android:gravity="center_vertical">
+
+
+        <LinearLayout
+            android:layout_width="80px"
+            android:layout_height="80px"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="108px"
+            android:layout_toLeftOf="@id/imgRecord">
+
+            <com.example.customview.view.CircleText
+                android:id="@+id/recordRestart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:circleColor="#ffe02f21"
+                app:textColor="#ffe02f21"
+                app:textContent="重录"
+                app:textSize="26px" />
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/imgRecord"
+            android:layout_width="139px"
+            android:layout_height="139px"
+            android:layout_centerInParent="true"
+            android:background="@drawable/record_audio"
+            android:scaleType="center" />
+
+
+        <LinearLayout
+            android:layout_width="80px"
+            android:layout_height="80px"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="108px"
+            android:layout_toRightOf="@id/imgRecord">
+
+            <com.example.customview.view.CircleText
+                android:id="@+id/recordDone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:circleColor="#ff02a348"
+                app:textColor="#ff00a947"
+                app:textContent="完成"
+                app:textSize="26px" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/tvPlaySate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="26px"
+        android:layout_marginBottom="57px"
+        android:gravity="center"
+        android:textColor="#505050"
+        android:textSize="26px" />
+
+</LinearLayout>

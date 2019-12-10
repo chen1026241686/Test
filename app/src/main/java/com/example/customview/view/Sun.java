@@ -7,6 +7,7 @@ import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.example.customview.R;
 public class Sun extends View {
 
 
+    private Bitmap bitmap;
     private Paint paintCircle;
 
     private int width;
@@ -50,6 +52,7 @@ public class Sun extends View {
     public Sun(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
+        bitmap= BitmapFactory.decodeResource(getResources(), R.drawable.dog4);
     }
 
 
@@ -68,5 +71,8 @@ public class Sun extends View {
         paintCircle.setColor(Color.RED);
         paintCircle.setMaskFilter(new BlurMaskFilter(50, BlurMaskFilter.Blur.SOLID));
         canvas.drawCircle(width / 2, height / 2, 100, paintCircle);
+
+//        canvas.drawBitmap(bitmap,new Rect(0,0,bitmap.getWidth(),bitmap.getHeight()),new Rect(0,0,300,300),paintCircle);
+//        canvas.drawBitmap(bitmap,new Rect(0,0,100,100),new Rect(0,0,300,300),paintCircle);
     }
 }

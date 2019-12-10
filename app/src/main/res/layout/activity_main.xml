@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:orientation="vertical">
+
+
+    <!--<com.example.customview.view.CircleProgress3-->
+    <!--android:layout_width="300px"-->
+    <!--android:layout_height="400px" />-->
 
     <!--<com.example.customview.view.CircleProgress2-->
     <!--android:id="@+id/aa"-->
@@ -29,9 +34,40 @@
     <!--<com.example.customview.view.SunEat2-->
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="match_parent" />-->
+
     <!--<com.example.customview.view.Sun-->
     <!--android:layout_width="match_parent"-->
+    <!--android:layout_weight="1"-->
     <!--android:layout_height="match_parent" />-->
+
+
+    <!--<com.example.customview.view.Sun-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_weight="1" />-->
+
+    <!--<com.example.customview.view.SunEat-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_weight="1" />-->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="animation"
+        android:text="animation" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="animation"
+        android:text="animation" />
+
+    <com.example.customview.view.RippleImageView
+        android:id="@+id/sundog"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:layout_weight="1" />
+
 
     <!--<com.example.customview.view.RadarAnimationView-->
     <!--android:id="@+id/radar_animation_view"-->
@@ -39,236 +75,59 @@
     <!--android:layout_height="match_parent"-->
     <!--android:background="@android:color/white" />-->
 
-    <ScrollView
+
+    <com.example.customview.TestView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 
+    <com.example.customview.viewgroup.FlowLayout
+        android:id="@+id/flowLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 
-            <Button
-                android:id="@+id/aa"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:onClick="aa"
-                android:text="aa" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="aaaa"
+        android:text="in"
+        android:visibility="gone" />
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:layout_gravity="center"
-                android:onClick="aa"
-                android:text="aa" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="bbbb"
+        android:text="out"
+        android:visibility="gone" />
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:layout_gravity="center"
-                android:onClick="aa"
-                android:text="aa" />
+    <com.example.customview.viewgroup.MyLinearLayout
+        android:layout_width="500px"
+        android:layout_height="500px"
+        android:background="@color/colorAccent"
+        android:visibility="gone">
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:layout_gravity="center"
-                android:onClick="aa"
-                android:text="aa" />
+        <com.example.customview.view.TouchView
+            android:id="@+id/touchview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_blue_light"
+            android:text="ABCDEFGHIGKLMNOPQRST123456789ABCDEFGHIGKLMNOPQRST123456789" />
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:layout_gravity="center"
-                android:onClick="aa"
-                android:text="aa" />
+    </com.example.customview.viewgroup.MyLinearLayout>
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:layout_gravity="center"
-                android:onClick="aa"
-                android:text="aa" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:layout_gravity="center"
-                android:onClick="aa"
-                android:text="aa" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:layout_gravity="center"
-                android:onClick="aa"
-                android:text="aa" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:layout_gravity="center"
-                android:onClick="aa"
-                android:text="aa" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:layout_gravity="center"
-                android:onClick="aa"
-                android:text="aa" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:layout_gravity="center"
-                android:onClick="aa"
-                android:text="aa" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:layout_gravity="center"
-                android:onClick="aa"
-                android:text="aa" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:layout_gravity="center"
-                android:onClick="aa"
-                android:text="aa" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:layout_gravity="center"
-                android:onClick="aa"
-                android:text="aa" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:layout_gravity="center"
-                android:onClick="aa"
-                android:text="aa" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:layout_gravity="center"
-                android:onClick="aa"
-                android:text="aa" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:layout_gravity="center"
-                android:onClick="aa"
-                android:text="aa" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:layout_gravity="center"
-                android:onClick="aa"
-                android:text="aa" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:layout_gravity="center"
-                android:onClick="aa"
-                android:text="aa" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:layout_gravity="center"
-                android:onClick="aa"
-                android:text="aa" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:layout_gravity="center"
-                android:onClick="aa"
-                android:text="aa" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:layout_gravity="center"
-                android:onClick="aa"
-                android:text="aa" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:layout_gravity="center"
-                android:onClick="aa"
-                android:text="aa" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:layout_gravity="center"
-                android:onClick="aa"
-                android:text="aa" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:layout_gravity="center"
-                android:onClick="aa"
-                android:text="aa" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:layout_gravity="center"
-                android:onClick="aa"
-                android:text="aa" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:layout_gravity="center"
-                android:onClick="aa"
-                android:text="aa" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:layout_gravity="center"
-                android:onClick="aa"
-                android:text="aa" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:layout_gravity="center"
-                android:onClick="aa"
-                android:text="aa" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:layout_gravity="center"
-                android:onClick="aa"
-                android:text="aa" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:layout_gravity="center"
-                android:onClick="aa"
-                android:text="aa" />
+    <View
+        android:id="@+id/animation"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@android:color/holo_blue_dark"
+        android:visibility="gone" />
 
 
-        </LinearLayout>
-    </ScrollView>
-
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

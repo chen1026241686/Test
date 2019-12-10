@@ -5,4 +5,6 @@
     <color name="colorAccent">#FF4081</color>
     <color name="default_shadow_color">#88757575</color>
     <color name="default_fill_color">#ffffff</color>
+    <color name="color_00000000">#00000000</color>
+    <color name="color_E5E5E5">#e5e5e5</color>
 </resources>

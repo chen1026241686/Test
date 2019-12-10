@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_page_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="我的种子" />
+
+    <include
+        layout="@layout/layout_net_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+    android:id="@+id/pull_refresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.example.customview.viewgroup.MyScrollView
+        android:id="@+id/bonus_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/bonus_point_rule"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:drawablePadding="10px"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:padding="20px"
+                    android:text="帮助说明"
+                    android:textColor="#FF505050"
+                    android:textSize="24px" />
+
+
+                <TextView
+                    android:id="@+id/bonus_point"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="0"
+                    android:textColor="#000000"
+                    android:textSize="68px"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20px"
+                    android:layout_marginBottom="24px"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="可用种子"
+                    android:textColor="#808080"
+                    android:textSize="24px" />
+
+
+                <TextView
+                    android:id="@+id/make_point"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50px"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="20px"
+                    android:gravity="center"
+                    android:paddingLeft="20px"
+                    android:paddingRight="20px"
+                    android:text="马上赚取种子"
+                    android:textColor="#df2d1f"
+                    android:textSize="24px" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20px"
+                android:background="#f8f8f8" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|left"
+                        android:layout_weight="1"
+                        android:paddingLeft="20px"
+                        android:paddingTop="26px"
+                        android:paddingBottom="26px"
+                        android:text="热门兑换"
+                        android:textColor="#000000"
+                        android:textSize="28px" />
+
+                    <TextView
+                        android:id="@+id/tvMoreGoods"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|right"
+                        android:paddingTop="26px"
+                        android:paddingRight="20px"
+                        android:paddingBottom="26px"
+                        android:text="更多商品"
+                        android:textColor="#505050"
+                        android:textSize="24px"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#f8f8f8" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/hotExchange"
+                        android:layout_width="match_parent"
+                        android:layout_height="300px" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_recycler_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#f8f8f8"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/point_detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="88px"
+                        android:layout_gravity="center_horizontal"
+                        android:background="#f8f8f8"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="种子收支明细"
+                        android:textColor="#808080"
+                        android:textSize="26px" />
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:descendantFocusability="blocksDescendants">
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rv_bonus_point_detail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#ffffff"
+                            android:paddingBottom="20px"
+                            app:fastScrollEnabled="false" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </com.example.customview.viewgroup.MyScrollView>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+</LinearLayout>
