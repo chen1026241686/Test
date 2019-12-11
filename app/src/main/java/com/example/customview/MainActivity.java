@@ -105,8 +105,7 @@ public class MainActivity extends AutoLayoutActivity {
     };
 
 
-    //如果全世界我也可以忘记,至少还有你，没有直的珍惜
-    //如果全世界我也可以忘记,至少还有你,直的我去珍惜
+    //TestReset
 
     View animation;
     private DialogRecordFragment mXBottomSheetDialogFragment;
