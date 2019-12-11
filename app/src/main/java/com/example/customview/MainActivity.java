@@ -176,7 +176,7 @@ public class MainActivity extends AutoLayoutActivity {
         Log.e("FFF", "width*height*4----------->" + mdpi.getWidth() * mdpi.getHeight() * 4);
 
 
-
+        HashMap<String, String> map=new HashMap<>();
 
 
     }

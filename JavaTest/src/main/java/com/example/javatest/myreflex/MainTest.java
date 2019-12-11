@@ -1,6 +1,7 @@
 package com.example.javatest.myreflex;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Hashtable;
@@ -76,22 +77,38 @@ public class MainTest {
         }
     }
 
-    public static void main(String args[]) {
+    public static void main(String args[]) throws CloneNotSupportedException {
+        int[] a = new int[]{2, 3, 4, 6, 6};
+        List list = Arrays.asList(1, 2, "哈");
 
-        ArrayList list = new ArrayList();
-        list.add("A");
-        list.add("B");
-        list.add("C");
+//        list.remove(0);
+//        list.add(0);
+        list.set(2,"hei");
 
-        Iterator iterator = list.iterator();
+        System.out.println(list.get(2));
+    }
 
-        ListIterator listIterator = list.listIterator();
-        while (listIterator.hasNext()) {
-            listIterator.next();
-            list.add("111");
+    static class Person {
+        public String name;
+
+        public Person(String name) {
+            this.name = name;
         }
-        System.out.println("list.size==" + list.size());
 
+        @Override
+        public String toString() {
+            return "my name is " + name;
+        }
+    }
+
+    static class CloneClass implements Cloneable {
+
+        public String name;
+
+        @Override
+        public Object clone() throws CloneNotSupportedException {
+            return super.clone();
+        }
     }
 
     /**
