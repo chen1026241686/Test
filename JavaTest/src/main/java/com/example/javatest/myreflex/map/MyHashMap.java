@@ -520,29 +520,48 @@ public class MyHashMap<K, V> extends MyAbstractMap<K, V> implements Map<K, V>, C
     final V putVal(int hash, K key, V value, boolean onlyIfAbsent, boolean evict) {
         Node<K, V>[] tab;
         Node<K, V> p;
-        int n, i;
-        //1.如果node数组为空，则对数据初始化
-        if ((tab = table) == null || (n = tab.length) == 0)
-            n = (tab = resize()).length;
-        if ((p = tab[i = (n - 1) & hash]) == null)
+        //记录table的大小
+        int n;
+        //
+        int i;
+        //1.如果node数组为空，则对数组初始化
+        if ((tab = table) == null || (n = tab.length) == 0) {
+            //初始化
+            tab = resize();
+            n = tab.length;
+        }
+        //TODO 这个位置怎么保证不会超出tab边界的
+        i = (n - 1) & hash;
+        p = tab[i];
+        //如果这个位置上没有数据
+        if (p == null) {
+            //在这个位置上添加一个数据
             tab[i] = newNode(hash, key, value, null);
+        }
+        //如果这个位置上已经有了数据
         else {
             Node<K, V> e;
             K k;
+            //如果这个位置上的hash值和新的hash值相同，并且（key相等或者key.equals(k)）
             if (p.hash == hash && ((k = p.key) == key || (key != null && key.equals(k)))) {
                 e = p;
-            } else if (p instanceof TreeNode)
+            }
+            //TODO 如果这个位置的元素是用TreeNode保存的（什么时候用这个来保存？）
+            else if (p instanceof TreeNode) {
                 e = ((TreeNode<K, V>) p).putTreeVal(this, tab, hash, key, value);
-            else {
+            } else {
                 for (int binCount = 0; ; ++binCount) {
                     if ((e = p.next) == null) {
                         p.next = newNode(hash, key, value, null);
-                        if (binCount >= TREEIFY_THRESHOLD - 1) // -1 for 1st
+                        // -1 for 1st
+                        if (binCount >= TREEIFY_THRESHOLD - 1) {
                             treeifyBin(tab, hash);
+                        }
                         break;
                     }
-                    if (e.hash == hash && ((k = e.key) == key || (key != null && key.equals(k))))
+                    if (e.hash == hash && ((k = e.key) == key || (key != null && key.equals(k)))) {
                         break;
+                    }
                     p = e;
                 }
             }
@@ -567,17 +586,23 @@ public class MyHashMap<K, V> extends MyAbstractMap<K, V> implements Map<K, V>, C
      * Otherwise, because we are using power-of-two expansion, the
      * elements from each bin must either stay at same index, or move
      * with a power of two offset in the new table.
+     * <p>
+     * 初始化或者扩容两倍，如果为空，分配默认的容量。否则
      *
      * @return the table
      */
     final Node<K, V>[] resize() {
         Node<K, V>[] oldTab = table;
-        //原来的容量
+        //原来的容量（0或者table的大小）
         int oldCap = (oldTab == null) ? 0 : oldTab.length;
+        //旧的（门槛，起点，界）
         int oldThr = threshold;
+        //新的容量
         int newCap;
+        //新的（门槛，起点，界）
         int newThr = 0;
-        //原来有数据
+
+        //大于0说明已经初始化过
         if (oldCap > 0) {
             if (oldCap >= MAXIMUM_CAPACITY) {
                 threshold = Integer.MAX_VALUE;
@@ -1696,6 +1721,7 @@ public class MyHashMap<K, V> extends MyAbstractMap<K, V> implements Map<K, V>, C
     }
 
     /* ------------------------------------------------------------ */
+    // 二叉树吗
     // Tree bins
 
     /**

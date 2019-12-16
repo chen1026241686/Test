@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +30,7 @@ import com.example.customview.viewgroup.MyScrollView2;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -74,6 +76,16 @@ public class MainActivity3 extends BaseActivity {
         mRecyclerView.setAdapter(mBonusPointDetailAdapter);
 
         scroll = findViewById(R.id.scroll);
+
+        SparseArray<Integer> stringSparseArray=new SparseArray<>();
+        stringSparseArray.append(1,10);
+        Log.e("AAA", stringSparseArray.indexOfValue(10)+"");
+
+        int[] array = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10};
+        Arrays.binarySearch(array,1);
+
+
+        String a;
     }
 
     @Override
