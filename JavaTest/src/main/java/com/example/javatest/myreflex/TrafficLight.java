@@ -3,7 +3,7 @@ package com.example.javatest.myreflex;
 /**
  * @author ChenYasheng
  * @date 2019/11/19
- * @Description
+ * @Description 交通灯枚举
  */
 public enum TrafficLight {
 
