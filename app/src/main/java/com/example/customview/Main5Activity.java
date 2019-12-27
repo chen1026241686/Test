@@ -1,34 +1,30 @@
 package com.example.customview;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ScrollView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.example.customview.adapter.BonusPointDetailAdapter;
 import com.example.customview.adapter.BonusPointItem;
-import com.example.customview.adapter.FullyLinearLayoutManager;
 import com.example.customview.adapter.HotExchange;
 import com.example.customview.adapter.HotExchangeAdapter;
 import com.example.customview.viewgroup.MyScrollView;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 public class Main5Activity extends AppCompatActivity {

@@ -3,7 +3,7 @@ package com.example.customview.drawable;
 import android.content.Context;
 import android.util.AttributeSet;
 
-public class MyImageView extends android.support.v7.widget.AppCompatImageView {
+public class MyImageView extends androidx.appcompat.widget.AppCompatImageView {
     public MyImageView(Context context) {
         super(context);
     }

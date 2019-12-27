@@ -1,6 +1,5 @@
 package com.example.javatest.myreflex.model;
 
-import com.example.javatest.myreflex.model.interfaces.Fly;
 
 /**
  * @author ChenYasheng

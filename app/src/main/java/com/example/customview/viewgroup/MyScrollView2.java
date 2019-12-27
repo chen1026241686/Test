@@ -30,7 +30,7 @@ import android.os.Build.VERSION_CODES;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.SystemClock;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.FocusFinder;
@@ -58,12 +58,12 @@ import java.util.List;
  * <p>Scroll view supports vertical scrolling only. For horizontal scrolling,
  * use { HorizontalScrollView} instead.</p>
  *
- * <p>Never add a {@link android.support.v7.widget.RecyclerView} or { ListView} to
+ * <p>Never add a {@link androidx.appcompat.widget.RecyclerView} or { ListView} to
  * a scroll view. Doing so results in poor user interface performance and a poor user
  * experience.</p>
  *
  * <p class="note">
- * For vertical scrolling, consider {@link android.support.v4.widget.NestedScrollView}
+ * For vertical scrolling, consider {@link androidx.core.widget.NestedScrollView}
  * instead of scroll view which offers greater user interface flexibility and
  * support for the material design scrolling patterns.</p>
  *

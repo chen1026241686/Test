@@ -1,39 +1,27 @@
 package com.example.customview;
 
-import android.content.Intent;
-import android.os.Build;
-import android.os.SystemClock;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatDelegate;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.util.SparseArray;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.example.customview.adapter.BonusPointDetailAdapter;
 import com.example.customview.adapter.BonusPointItem;
-import com.example.customview.adapter.CustomViewHolder;
-import com.example.customview.adapter.ListAdapter;
 import com.example.customview.viewgroup.MyScrollView2;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+
+import dalvik.system.PathClassLoader;
 
 public class MainActivity3 extends BaseActivity {
 
@@ -52,7 +40,6 @@ public class MainActivity3 extends BaseActivity {
 
         //提交一次
 
-        ClassLoader classLoader;
 
         setContentView(R.layout.activity_main3);
         mRecyclerView = findViewById(R.id.list);
@@ -77,15 +64,21 @@ public class MainActivity3 extends BaseActivity {
 
         scroll = findViewById(R.id.scroll);
 
-        SparseArray<Integer> stringSparseArray=new SparseArray<>();
-        stringSparseArray.append(1,10);
-        Log.e("AAA", stringSparseArray.indexOfValue(10)+"");
 
-        int[] array = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10};
-        Arrays.binarySearch(array,1);
+        ClassLoader classLoader = getClassLoader();
+        while (classLoader != null) {
+            Log.e("AAA", classLoader.getClass().getName());
+            classLoader = classLoader.getParent();
+        }
 
 
-        String a;
+        Log.e("AAA", "-------------------------------------------------------------------");
+        Log.e("AAA", Activity.class.getClassLoader().getClass().getName());
+        Log.e("AAA", AppCompatActivity.class.getClassLoader().getClass().getName());
+
+        PathClassLoader pathClassLoader;
+
+
     }
 
     @Override
@@ -101,9 +94,9 @@ public class MainActivity3 extends BaseActivity {
             Log.e("FFF", "view.getHeight--->" + view.getHeight());
 
 
-
         }
     }
+
     public static void printObject(Object obj) {
 
         Collection conllections = new HashSet();
@@ -114,8 +107,9 @@ public class MainActivity3 extends BaseActivity {
 
         ((HashSet) conllections).contains("1");
 
-        System.out.println("HashSet-->"+conllections.size());
+        System.out.println("HashSet-->" + conllections.size());
     }
+
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);

@@ -149,7 +149,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <android.support.v7.widget.RecyclerView
+                    <androidx.appcompat.widget.RecyclerView
                         android:id="@+id/hotExchange"
                         android:layout_width="match_parent"
                         android:layout_height="300px" />
@@ -180,7 +180,7 @@
                         android:layout_height="wrap_content"
                         android:descendantFocusability="blocksDescendants">
 
-                        <android.support.v7.widget.RecyclerView
+                        <androidx.appcompat.widget.RecyclerView
                             android:id="@+id/rv_bonus_point_detail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
