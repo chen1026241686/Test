@@ -16,7 +16,7 @@ android {
     defaultConfig {
         applicationId "com.example.customview"
         minSdkVersion 23
-        targetSdkVersion 26
+        targetSdkVersion 28
         versionCode 106
         versionName '1.2.3'
     }
@@ -68,6 +68,11 @@ android {
         main {
             jniLibs.srcDirs = ['libs']
         }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
 }

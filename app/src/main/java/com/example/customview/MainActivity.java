@@ -3,6 +3,8 @@ package com.example.customview;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
@@ -13,13 +15,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.HandlerThread;
 import android.os.IBinder;
-import android.os.Looper;
-import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +40,6 @@ import com.example.customview.aidl.IMyAidlInterface;
 import com.example.customview.http.HttpUtils;
 import com.example.customview.listview.AdapterViewHolder;
 import com.example.customview.listview.RecyclerAdapter;
-import com.example.customview.view.RippleImageView;
 import com.example.customview.view.TouchView;
 import com.example.customview.viewgroup.FlowLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -49,10 +47,12 @@ import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.runtime.Permission;
 import com.zhy.autolayout.AutoLayoutActivity;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import dalvik.system.DexClassLoader;
+import dalvik.system.PathClassLoader;
 
 import static android.view.WindowManager.LayoutParams.TYPE_APPLICATION;
 
@@ -61,6 +61,15 @@ import static android.view.WindowManager.LayoutParams.TYPE_APPLICATION;
  */
 public class MainActivity extends AutoLayoutActivity {
 
+
+    Activity activity;
+
+    ActivityManager activityManager;
+
+    MediaPlayer mediaPlayer;
+
+    DexClassLoader dexClassLoader;
+    PathClassLoader pathClassLoader;
 
     private ImageView imageaasd;
 
@@ -114,10 +123,6 @@ public class MainActivity extends AutoLayoutActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        DaggerMainActivityComponent.create("123").inject(this);
-//        Log.e("FFF", "Inject onCreate=" + pot.show());
-//        Log.e("FFF", "Inject onCreate=" + pot.roseShow());
-
         mContentView = LayoutInflater.from(this).inflate(R.layout.activity_main, null);
         setContentView(mContentView);
 
@@ -132,9 +137,6 @@ public class MainActivity extends AutoLayoutActivity {
 
         flowLayout.setFlowLayout(maps, null);
 
-        HandlerThread handlerThread = new HandlerThread("MainActivity");
-        handlerThread.start();
-
 
         Intent intent = new Intent(this, MyService.class);
         this.bindService(intent, mConnection, Service.BIND_AUTO_CREATE);
@@ -145,53 +147,41 @@ public class MainActivity extends AutoLayoutActivity {
         listView();
 
 
-        handler = new MusicPlayerHandler(this, Looper.getMainLooper());
-
         AndPermission.with(this).runtime().permission(new String[]{Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE, Permission.RECORD_AUDIO}).start();
 
 
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inPreferredConfig = Bitmap.Config.ARGB_4444;
+//        BitmapFactory.Options options = new BitmapFactory.Options();
+//        options.inPreferredConfig = Bitmap.Config.ARGB_4444;
 
-        Bitmap mdpi = BitmapFactory.decodeResource(getResources(), R.drawable.aaa, options);
-        Bitmap hdpi = BitmapFactory.decodeResource(getResources(), R.drawable.bbb);
-        Bitmap xhdpi = BitmapFactory.decodeResource(getResources(), R.drawable.ccc);
-        Bitmap xxhdpi = BitmapFactory.decodeResource(getResources(), R.drawable.ddd);
-        Bitmap xxxhdpi = BitmapFactory.decodeResource(getResources(), R.drawable.eee);
-
-        Log.e("FFF", "mdpi------>" + mdpi.getWidth());
-        Log.e("FFF", "hdpi------>" + hdpi.getWidth());
-        Log.e("FFF", "xhdpi----->" + xhdpi.getWidth());
-        Log.e("FFF", "xxhdpi---->" + xxhdpi.getWidth());
-        Log.e("FFF", "xxxhdpi--->" + xxxhdpi.getWidth());
-
-
-        Log.e("FFF", "getAllocationByteCount--->" + mdpi.getAllocationByteCount());
-        Log.e("FFF", "getByteCount------------->" + mdpi.getByteCount());
-        Log.e("FFF", "getRowBytes-------------->" + mdpi.getRowBytes());
-        Log.e("FFF", "getRowBytes*height------->" + mdpi.getRowBytes() * mdpi.getHeight());
-        Log.e("FFF", "getWidth------->" + mdpi.getWidth() + "  getHeight----->" + mdpi.getHeight());
-        Log.e("FFF", "width*height*4----------->" + mdpi.getWidth() * mdpi.getHeight() * 4);
-
-
-        HashMap<String, String> map=new HashMap<>();
+//        Bitmap mdpi = BitmapFactory.decodeResource(getResources(), R.drawable.aaa, options);
+//        Bitmap hdpi = BitmapFactory.decodeResource(getResources(), R.drawable.bbb);
+//        Bitmap xhdpi = BitmapFactory.decodeResource(getResources(), R.drawable.ccc);
+//        Bitmap xxhdpi = BitmapFactory.decodeResource(getResources(), R.drawable.ddd);
+//        Bitmap xxxhdpi = BitmapFactory.decodeResource(getResources(), R.drawable.eee);
+//
+//        Log.e("FFF", "mdpi------>" + mdpi.getWidth());
+//        Log.e("FFF", "hdpi------>" + hdpi.getWidth());
+//        Log.e("FFF", "xhdpi----->" + xhdpi.getWidth());
+//        Log.e("FFF", "xxhdpi---->" + xxhdpi.getWidth());
+//        Log.e("FFF", "xxxhdpi--->" + xxxhdpi.getWidth());
+//
+//
+//        Log.e("FFF", "getAllocationByteCount--->" + mdpi.getAllocationByteCount());
+//        Log.e("FFF", "getByteCount------------->" + mdpi.getByteCount());
+//        Log.e("FFF", "getRowBytes-------------->" + mdpi.getRowBytes());
+//        Log.e("FFF", "getRowBytes*height------->" + mdpi.getRowBytes() * mdpi.getHeight());
+//        Log.e("FFF", "getWidth------->" + mdpi.getWidth() + "  getHeight----->" + mdpi.getHeight());
+//        Log.e("FFF", "width*height*4----------->" + mdpi.getWidth() * mdpi.getHeight() * 4);
 
 
-    }
 
-    private class MyRunnable implements Runnable {
 
-        @Override
-        public void run() {
-            Log.e("FFF", "MyRunnable--------------");
-        }
     }
 
 
     @Override
     protected void onPause() {
         super.onPause();
-//        finish();
     }
 
 
@@ -200,33 +190,6 @@ public class MainActivity extends AutoLayoutActivity {
         super.onStop();
     }
 
-    private MusicPlayerHandler handler;
-
-    private static final class MusicPlayerHandler extends Handler {
-        private final WeakReference<MainActivity> mService;
-
-
-        public MusicPlayerHandler(final MainActivity service, final Looper looper) {
-            super(looper);
-            mService = new WeakReference<>(service);
-        }
-
-
-        @Override
-        public void handleMessage(final Message msg) {
-            final MainActivity service = mService.get();
-            if (service == null) {
-                return;
-            }
-
-            synchronized (service) {
-                switch (msg.what) {
-                    default:
-                        break;
-                }
-            }
-        }
-    }
 
     ObjectAnimator inObjectAnimator, outObjectAnimator, alphaAnimator;
 
@@ -234,10 +197,10 @@ public class MainActivity extends AutoLayoutActivity {
 
 
     public void animation(View view) {
-        RippleImageView sunDog = findViewById(R.id.sundog);
-        sunDog.startAnimation();
 
-        startActivity(new Intent(this, MainActivity3.class));
+        Intent intent = new Intent();
+        intent.setAction("android.intent.action.MainActivity2");
+        startActivity(intent);
     }
 
     public void aaaa(View view) {

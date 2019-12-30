@@ -12,8 +12,9 @@
         android:text="Activity222222222" />
 
 
+
     <!--ViewPager标题栏-->
-    <android.support.design.widget.TabLayout
+    <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,7 +25,7 @@
         app:tabMode="fixed" />
 
     <!--承载Fragment-->
-    <androidx.core.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

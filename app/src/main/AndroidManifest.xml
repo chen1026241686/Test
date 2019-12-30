@@ -31,12 +31,44 @@
             android:name="design_height_2"
             android:value="1500" />
 
-        <activity android:name=".MainActivity4" />
-        <activity android:name=".MainActivity"></activity>
+
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".MainActivity2"
             android:launchMode="singleTask"
-            android:taskAffinity=":MainActivity2" />
+            android:taskAffinity=":MainActivity2">
+            <intent-filter>
+                <action android:name="android.intent.action.MainActivity2" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+
+        <activity
+            android:name=".MainActivity3"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MainActivity2" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".MainActivity4">
+            <intent-filter>
+                <action android:name="android.intent.action.MainActivity4" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <service
             android:name=".MyService"
@@ -44,16 +76,7 @@
             android:exported="true"
             android:process=":myService" />
 
-        <activity
-            android:name=".MainActivity3"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
-        </activity>
     </application>
 
 </manifest>

@@ -31,6 +31,9 @@ public class MainActivity2 extends AppCompatActivity {
         Log.e("FFF", "MainActivity2 started,TaskID--->"+getTaskId());
 //        setupViewPager(viewPager);
 //        tabLayout.setupWithViewPager(viewPager, true);
+
+        Intent intent=new Intent(this,MainActivity2.class);
+        startActivity(intent);
     }
 
 
