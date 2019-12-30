@@ -53,6 +53,7 @@ import java.util.List;
 
 import dalvik.system.DexClassLoader;
 import dalvik.system.PathClassLoader;
+import retrofit2.Retrofit;
 
 import static android.view.WindowManager.LayoutParams.TYPE_APPLICATION;
 
@@ -174,6 +175,7 @@ public class MainActivity extends AutoLayoutActivity {
 //        Log.e("FFF", "width*height*4----------->" + mdpi.getWidth() * mdpi.getHeight() * 4);
 
 
+        Retrofit retrofit;
 
 
     }
