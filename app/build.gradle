@@ -20,19 +20,25 @@ android {
         versionCode 106
         versionName '1.2.3'
     }
-    flavorDimensions "money", "goods"
+    flavorDimensions "money", "free"
     productFlavors {
-        companyAAA {
+
+        moneyA {
+            dimension "money"
+            buildConfigField "String", "FLAVOR_NAME", "\"channelAA\""
+        }
+        freeC {
+            dimension "free"
+            buildConfigField "String", "FLAVOR_NAME", "\"channelAAA\""
+        }
+
+        moneyB {
             dimension "money"
             buildConfigField "String", "FLAVOR_NAME", "\"channelBB\""
         }
-        HHHHH {
-            dimension "goods"
+        freeD {
+            dimension "free"
             buildConfigField "String", "FLAVOR_NAME", "\"channelAAA\""
-        }
-        ABBB {
-            dimension "money"
-            buildConfigField "String", "FLAVOR_NAME", "\"channelAA\""
         }
 
 

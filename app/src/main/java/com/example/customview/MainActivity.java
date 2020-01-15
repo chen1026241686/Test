@@ -5,7 +5,6 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.ActivityManager;
-import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -16,9 +15,11 @@ import android.graphics.Matrix;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,17 +44,29 @@ import com.example.customview.listview.RecyclerAdapter;
 import com.example.customview.view.TouchView;
 import com.example.customview.viewgroup.FlowLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.yanzhenjie.permission.AndPermission;
-import com.yanzhenjie.permission.runtime.Permission;
+import com.pujitech.atsmarthome.CallType;
+import com.pujitech.atsmarthome.MainActivitySS;
 import com.zhy.autolayout.AutoLayoutActivity;
 
+import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import dalvik.system.DexClassLoader;
 import dalvik.system.PathClassLoader;
-import retrofit2.Retrofit;
+import retrofit2.http.DELETE;
+import retrofit2.http.GET;
+import retrofit2.http.HEAD;
+import retrofit2.http.HTTP;
+import retrofit2.http.OPTIONS;
+import retrofit2.http.PATCH;
+import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 import static android.view.WindowManager.LayoutParams.TYPE_APPLICATION;
 
@@ -91,6 +104,8 @@ public class MainActivity extends AutoLayoutActivity {
 
     private FlowLayout flowLayout;
 
+    private String tag = "FFF";
+
     private TextView tv;
 
 
@@ -113,6 +128,16 @@ public class MainActivity extends AutoLayoutActivity {
         }
     };
 
+    public void requestIgnoreBatteryOptimizations() {
+        try {
+            Intent intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+            intent.setData(Uri.parse("package:" + getPackageName()));
+            startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     //TestReset
 
@@ -131,24 +156,24 @@ public class MainActivity extends AutoLayoutActivity {
 
         flowLayout = findViewById(R.id.flowLayout);
 
-        List<String> maps = new ArrayList<>();
-        for (int i = 0; i < 14; i++) {
-            maps.add(i + "F");
-        }
-
-        flowLayout.setFlowLayout(maps, null);
+//        List<String> maps = new ArrayList<>();
+//        for (int i = 0; i < 14; i++) {
+//            maps.add(i + "F");
+//        }
+//
+//        flowLayout.setFlowLayout(maps, null);
 
 
         Intent intent = new Intent(this, MyService.class);
-        this.bindService(intent, mConnection, Service.BIND_AUTO_CREATE);
+        startService(intent);
 
         animation = findViewById(R.id.animation);
 
 
-        listView();
+//        listView();
 
 
-        AndPermission.with(this).runtime().permission(new String[]{Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE, Permission.RECORD_AUDIO}).start();
+//        AndPermission.with(this).runtime().permission(new String[]{Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE, Permission.RECORD_AUDIO}).start();
 
 
 //        BitmapFactory.Options options = new BitmapFactory.Options();
@@ -175,11 +200,87 @@ public class MainActivity extends AutoLayoutActivity {
 //        Log.e("FFF", "width*height*4----------->" + mdpi.getWidth() * mdpi.getHeight() * 4);
 
 
-        Retrofit retrofit;
+//        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://www.baidu.com/").build();
+//        retrofit.create(Api.class).requestApi("aa", "bb",12);
+
+//        Class clz = Api.class;
+//        try {
+//            Method method = clz.getMethod("requestApi", String.class, String.class, int.class);
+//
+//            for (Annotation annotation : method.getAnnotations()) {
+//                parseMethodAnnotation(annotation);
+//            }
+//
+//            Type[] parameterTypes = method.getGenericParameterTypes();
+//            for (int i = 0; i < parameterTypes.length; i++) {
+//                Log.e("FFF", parameterTypes[i].toString());
+//            }
+//
+//            Annotation[][] parameterAnnotationsArray = method.getParameterAnnotations();
+//            for (int i = 0; i < parameterAnnotationsArray.length; i++) {
+//                Log.e("FFF", "Out---------->" + parameterAnnotationsArray[i].toString());
+//                for (int i1 = 0; i1 < parameterAnnotationsArray[i].length; i1++) {
+//                    Log.e("FFF", "In---------->" + parameterAnnotationsArray[i][i1].toString());
+//                }
+//            }
+//        } catch (NoSuchMethodException e) {
+//            e.printStackTrace();
+//        }
 
 
     }
 
+    private void parseMethodAnnotation(Annotation annotation) {
+        if (annotation instanceof DELETE) {
+            parseHttpMethodAndPath("DELETE", ((DELETE) annotation).value(), false);
+        } else if (annotation instanceof GET) {
+            parseHttpMethodAndPath("GET", ((GET) annotation).value(), false);
+        } else if (annotation instanceof HEAD) {
+            parseHttpMethodAndPath("HEAD", ((HEAD) annotation).value(), false);
+        } else if (annotation instanceof PATCH) {
+            parseHttpMethodAndPath("PATCH", ((PATCH) annotation).value(), true);
+        } else if (annotation instanceof POST) {
+            parseHttpMethodAndPath("POST", ((POST) annotation).value(), true);
+        } else if (annotation instanceof PUT) {
+            parseHttpMethodAndPath("PUT", ((PUT) annotation).value(), true);
+        } else if (annotation instanceof OPTIONS) {
+            parseHttpMethodAndPath("OPTIONS", ((OPTIONS) annotation).value(), false);
+        } else if (annotation instanceof HTTP) {
+            HTTP http = (HTTP) annotation;
+            parseHttpMethodAndPath(http.method(), http.path(), http.hasBody());
+        }
+    }
+
+    private static final String PARAM = "[a-zA-Z][a-zA-Z0-9_-]*";
+    private static final Pattern PARAM_URL_REGEX = Pattern.compile("\\{(" + PARAM + ")\\}");
+    private static final Pattern PARAM_NAME_REGEX = Pattern.compile(PARAM);
+
+    private void parseHttpMethodAndPath(String httpMethod, String value, boolean hasBody) {
+
+
+        // Get the relative URL path and existing query string, if present.
+        int question = value.indexOf('?');
+        if (question != -1 && question < value.length() - 1) {
+            // Ensure the query string does not have any named parameters.
+            String queryParams = value.substring(question + 1);
+            Matcher queryParamMatcher = PARAM_URL_REGEX.matcher(queryParams);
+            if (queryParamMatcher.find()) {
+                Log.e(tag, "URL query string must not have replace block.  For dynamic query parameters use @Query.");
+            }
+        }
+
+        Log.e(tag, "value--->" + value);
+        Log.e(tag, "relativeUrlParamNames--->" + parsePathParameters(value));
+    }
+
+    static Set<String> parsePathParameters(String path) {
+        Matcher m = PARAM_URL_REGEX.matcher(path);
+        Set<String> patterns = new LinkedHashSet<>();
+        while (m.find()) {
+            patterns.add(m.group(1));
+        }
+        return patterns;
+    }
 
     @Override
     protected void onPause() {
@@ -190,6 +291,7 @@ public class MainActivity extends AutoLayoutActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        Log.e("FFF", "onStop----");
     }
 
 
@@ -200,8 +302,8 @@ public class MainActivity extends AutoLayoutActivity {
 
     public void animation(View view) {
 
-        Intent intent = new Intent();
-        intent.setAction("android.intent.action.MainActivity2");
+        Intent intent=new Intent(this, MainActivitySS.class);
+        intent.putExtra("aa", CallType.EMERGENCY);
         startActivity(intent);
     }
 
@@ -337,6 +439,7 @@ public class MainActivity extends AutoLayoutActivity {
 //
 //
 //        ab = "";
+        Log.e("FFF", "onresume");
 
     }
 
@@ -395,27 +498,27 @@ public class MainActivity extends AutoLayoutActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        this.unbindService(mConnection);
-        Log.e("FFF", "MainActivity1---->onDestroy");
+//        this.unbindService(mConnection);
+//        Log.e("FFF", "MainActivity1---->onDestroy");
     }
 
 //    @Override
 //    public boolean dispatchTouchEvent(MotionEvent ev) {
 //        switch (ev.getActionMasked()) {
 //            case MotionEvent.ACTION_DOWN:
-//                Log.e("FFF", "MainActivity-->dispatchTouchEvent-->ACTION_DOWN");
+//                Log.e("FFF", "MainActivitySS-->dispatchTouchEvent-->ACTION_DOWN");
 //                break;
 //            case MotionEvent.ACTION_CANCEL:
-//                Log.e("FFF", "MainActivity-->dispatchTouchEvent-->ACTION_CANCEL");
+//                Log.e("FFF", "MainActivitySS-->dispatchTouchEvent-->ACTION_CANCEL");
 //                break;
 //            case MotionEvent.ACTION_MOVE:
-//                Log.e("FFF", "MainActivity-->dispatchTouchEvent-->ACTION_MOVE");
+//                Log.e("FFF", "MainActivitySS-->dispatchTouchEvent-->ACTION_MOVE");
 //                break;
 //            case MotionEvent.ACTION_UP:
-//                Log.e("FFF", "MainActivity-->dispatchTouchEvent-->ACTION_UP");
+//                Log.e("FFF", "MainActivitySS-->dispatchTouchEvent-->ACTION_UP");
 //                break;
 //            default:
-//                Log.e("FFF", "MainActivity-->dispatchTouchEvent-->default");
+//                Log.e("FFF", "MainActivitySS-->dispatchTouchEvent-->default");
 //                break;
 //        }
 ////        return true;
@@ -426,19 +529,19 @@ public class MainActivity extends AutoLayoutActivity {
 //    public boolean onTouchEvent(MotionEvent event) {
 //        switch (event.getActionMasked()) {
 //            case MotionEvent.ACTION_DOWN:
-//                Log.e("FFF", "MainActivity-->onTouchEvent-->ACTION_DOWN");
+//                Log.e("FFF", "MainActivitySS-->onTouchEvent-->ACTION_DOWN");
 //                break;
 //            case MotionEvent.ACTION_CANCEL:
-//                Log.e("FFF", "MainActivity-->onTouchEvent-->ACTION_CANCEL");
+//                Log.e("FFF", "MainActivitySS-->onTouchEvent-->ACTION_CANCEL");
 //                break;
 //            case MotionEvent.ACTION_MOVE:
-//                Log.e("FFF", "MainActivity-->onTouchEvent-->ACTION_MOVE");
+//                Log.e("FFF", "MainActivitySS-->onTouchEvent-->ACTION_MOVE");
 //                break;
 //            case MotionEvent.ACTION_UP:
-//                Log.e("FFF", "MainActivity-->onTouchEvent-->ACTION_UP");
+//                Log.e("FFF", "MainActivitySS-->onTouchEvent-->ACTION_UP");
 //                break;
 //            default:
-//                Log.e("FFF", "MainActivity-->onTouchEvent-->default");
+//                Log.e("FFF", "MainActivitySS-->onTouchEvent-->default");
 //                break;
 //        }
 //        return super.onTouchEvent(event);

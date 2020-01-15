@@ -55,6 +55,7 @@
         android:layout_height="wrap_content"
         android:onClick="animation"
         android:text="animation" />
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -65,8 +66,8 @@
         android:id="@+id/sundog"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:visibility="gone" />
 
 
     <!--<com.example.customview.view.RadarAnimationView-->
