@@ -1,14 +1,10 @@
 package com.example.javatest.myreflex;
 
+import org.openjdk.jol.info.ClassLayout;
+
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -153,41 +149,15 @@ public class ThreadTest {
     public static void main(String[] args) {
 
 
-        String a = "/a";
-        System.out.println("a=" + a);
+        ClassLayout layout=ClassLayout.parseInstance(new Object());
 
 
-        List<String> list = new ArrayList<>();
-        list.add("123a");
-        list.add("123b");
-        list.add("123c");
-        list.add("123d");
-        list.add("123e");
-        list.add("123f");
-        list.forEach(new Consumer<String>() {
-            @Override
-            public void accept(String s) {
-//                System.out.println("s--->" + s);
-            }
-        });
-
-        Map<String, String> map = new HashMap<>();
-        map.put("1", "1");
-        map.put("2", "2");
-        map.put("3", "3");
-        map.put("4", "4");
-        map.put("5", "5");
-        map.put("6", "6");
-
-        map.forEach(new BiConsumer<String, String>() {
-            @Override
-            public void accept(String s, String s2) {
-                System.out.println("s--->"+s+",s2---->"+s2);
-            }
-        });
+        System.out.println(layout.toPrintable());
 
 
     }
+
+
 
 
 }

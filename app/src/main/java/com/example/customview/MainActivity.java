@@ -44,8 +44,6 @@ import com.example.customview.listview.RecyclerAdapter;
 import com.example.customview.view.TouchView;
 import com.example.customview.viewgroup.FlowLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.pujitech.atsmarthome.CallType;
-import com.pujitech.atsmarthome.MainActivitySS;
 import com.zhy.autolayout.AutoLayoutActivity;
 
 import java.lang.annotation.Annotation;
@@ -292,6 +290,9 @@ public class MainActivity extends AutoLayoutActivity {
     protected void onStop() {
         super.onStop();
         Log.e("FFF", "onStop----");
+
+        ThreadLocal<String> threadLocal=new ThreadLocal<>();
+        threadLocal.set("AA");
     }
 
 
@@ -302,9 +303,6 @@ public class MainActivity extends AutoLayoutActivity {
 
     public void animation(View view) {
 
-        Intent intent=new Intent(this, MainActivitySS.class);
-        intent.putExtra("aa", CallType.EMERGENCY);
-        startActivity(intent);
     }
 
     public void aaaa(View view) {
