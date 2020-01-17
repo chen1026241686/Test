@@ -5,6 +5,7 @@ import org.openjdk.jol.info.ClassLayout;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -147,17 +148,22 @@ public class ThreadTest {
     }
 
     public static void main(String[] args) {
-
-
-        ClassLayout layout=ClassLayout.parseInstance(new Object());
-
-
-        System.out.println(layout.toPrintable());
-
-
+        ClassLayout layout1 = ClassLayout.parseInstance("AAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        ClassLayout layout2 = ClassLayout.parseInstance(new Person());
+        System.out.println(layout1.toPrintable());
+        System.out.println(layout2.toPrintable());
     }
 
-
-
+    public static class Person
+    {
+        public static String name="AAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        private boolean isBlack;
+        private int age;
+        private char[] a=new char[10];
+        private String[] citys;
+        private long id;
+        private double money;
+        private HashMap map=new HashMap();
+    }
 
 }
