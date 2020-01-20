@@ -150,8 +150,10 @@ public class ThreadTest {
     public static void main(String[] args) {
         ClassLayout layout1 = ClassLayout.parseInstance("AAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         ClassLayout layout2 = ClassLayout.parseInstance(new Person());
+        ClassLayout layout3 = ClassLayout.parseInstance('A');
         System.out.println(layout1.toPrintable());
         System.out.println(layout2.toPrintable());
+        System.out.println(layout3.toPrintable());
     }
 
     public static class Person
