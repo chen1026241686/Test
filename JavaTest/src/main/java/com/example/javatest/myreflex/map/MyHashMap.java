@@ -275,7 +275,7 @@ public class MyHashMap<K, V> extends MyAbstractMap<K, V> implements Map<K, V>, C
     }
 
     /**
-     * Returns a power of two size for the given target capacity.
+     * 返回大于并最接近cap的二次幂大小
      */
     static final int tableSizeFor(int cap) {
         int n = cap - 1;
@@ -548,7 +548,7 @@ public class MyHashMap<K, V> extends MyAbstractMap<K, V> implements Map<K, V>, C
             tab = resize();
             n = tab.length;
         }
-        //TODO 这个位置怎么保证不会超出tab边界的
+        //n是这个table的大小，并且是2的次幂，则n-1的二进制全都是11111，所以i肯定是小于等于n-1的
         i = (n - 1) & hash;
         p = tab[i];
         //如果这个位置上没有数据
