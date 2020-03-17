@@ -111,17 +111,20 @@ public class MyLinkedHashMap<K, V> extends MyHashMap<K, V> implements Map<K, V> 
 
     // overrides of HashMap hook methods
 
+    @Override
     void reinitialize() {
         super.reinitialize();
         head = tail = null;
     }
 
+    @Override
     Node<K, V> newNode(int hash, K key, V value, Node<K, V> e) {
         LinkedHashMapEntry<K, V> p = new LinkedHashMapEntry<K, V>(hash, key, value, e);
         linkNodeLast(p);
         return p;
     }
 
+    @Override
     Node<K, V> replacementNode(Node<K, V> p, Node<K, V> next) {
         LinkedHashMapEntry<K, V> q = (LinkedHashMapEntry<K, V>) p;
         LinkedHashMapEntry<K, V> t = new LinkedHashMapEntry<K, V>(q.hash, q.key, q.value, next);
@@ -129,12 +132,14 @@ public class MyLinkedHashMap<K, V> extends MyHashMap<K, V> implements Map<K, V> 
         return t;
     }
 
+    @Override
     TreeNode<K, V> newTreeNode(int hash, K key, V value, Node<K, V> next) {
         TreeNode<K, V> p = new TreeNode<K, V>(hash, key, value, next);
         linkNodeLast(p);
         return p;
     }
 
+    @Override
     TreeNode<K, V> replacementTreeNode(Node<K, V> p, Node<K, V> next) {
         LinkedHashMapEntry<K, V> q = (LinkedHashMapEntry<K, V>) p;
         TreeNode<K, V> t = new TreeNode<K, V>(q.hash, q.key, q.value, next);
@@ -142,6 +147,7 @@ public class MyLinkedHashMap<K, V> extends MyHashMap<K, V> implements Map<K, V> 
         return t;
     }
 
+    @Override
     void afterNodeRemoval(Node<K, V> e) { // unlink
         LinkedHashMapEntry<K, V> p = (LinkedHashMapEntry<K, V>) e, b = p.before, a = p.after;
         p.before = p.after = null;
@@ -155,6 +161,7 @@ public class MyLinkedHashMap<K, V> extends MyHashMap<K, V> implements Map<K, V> 
             a.before = b;
     }
 
+    @Override
     void afterNodeInsertion(boolean evict) { // possibly remove eldest
         LinkedHashMapEntry<K, V> first;
         if (evict && (first = head) != null && removeEldestEntry(first)) {
@@ -163,6 +170,7 @@ public class MyLinkedHashMap<K, V> extends MyHashMap<K, V> implements Map<K, V> 
         }
     }
 
+    @Override
     void afterNodeAccess(Node<K, V> e) { // move node to last
         LinkedHashMapEntry<K, V> last;
         if (accessOrder && (last = tail) != e) {
@@ -187,6 +195,7 @@ public class MyLinkedHashMap<K, V> extends MyHashMap<K, V> implements Map<K, V> 
         }
     }
 
+    @Override
     void internalWriteEntries(java.io.ObjectOutputStream s) throws IOException {
         for (LinkedHashMapEntry<K, V> e = head; e != null; e = e.after) {
             s.writeObject(e.key);
@@ -269,6 +278,7 @@ public class MyLinkedHashMap<K, V> extends MyHashMap<K, V> implements Map<K, V> 
      * @return <tt>true</tt> if this map maps one or more keys to the
      * specified value
      */
+    @Override
     public boolean containsValue(Object value) {
         for (LinkedHashMapEntry<K, V> e = head; e != null; e = e.after) {
             V v = e.value;
@@ -293,6 +303,7 @@ public class MyLinkedHashMap<K, V> extends MyHashMap<K, V> implements Map<K, V> 
      * The {@link #containsKey containsKey} operation may be used to
      * distinguish these two cases.
      */
+    @Override
     public V get(Object key) {
         Node<K, V> e;
         if ((e = getNode(hash(key), key)) == null)
@@ -305,6 +316,7 @@ public class MyLinkedHashMap<K, V> extends MyHashMap<K, V> implements Map<K, V> 
     /**
      * {@inheritDoc}
      */
+    @Override
     public V getOrDefault(Object key, V defaultValue) {
         Node<K, V> e;
         if ((e = getNode(hash(key), key)) == null)
@@ -317,6 +329,7 @@ public class MyLinkedHashMap<K, V> extends MyHashMap<K, V> implements Map<K, V> 
     /**
      * {@inheritDoc}
      */
+    @Override
     public void clear() {
         super.clear();
         head = tail = null;
@@ -396,6 +409,7 @@ public class MyLinkedHashMap<K, V> extends MyHashMap<K, V> implements Map<K, V> 
      *
      * @return a set view of the keys contained in this map
      */
+    @Override
     public Set<K> keySet() {
         Set<K> ks = keySet;
         if (ks == null) {
@@ -460,6 +474,7 @@ public class MyLinkedHashMap<K, V> extends MyHashMap<K, V> implements Map<K, V> 
      *
      * @return a view of the values contained in this map
      */
+    @Override
     public Collection<V> values() {
         Collection<V> vs = values;
         if (vs == null) {
@@ -521,6 +536,7 @@ public class MyLinkedHashMap<K, V> extends MyHashMap<K, V> implements Map<K, V> 
      *
      * @return a set view of the mappings contained in this map
      */
+    @Override
     public Set<Map.Entry<K, V>> entrySet() {
         Set<Map.Entry<K, V>> es;
         return (es = entrySet) == null ? (entrySet = new LinkedEntrySet()) : es;
@@ -576,6 +592,7 @@ public class MyLinkedHashMap<K, V> extends MyHashMap<K, V> implements Map<K, V> 
 
     // Map overrides
 
+    @Override
     public void forEach(BiConsumer<? super K, ? super V> action) {
         if (action == null)
             throw new NullPointerException();
@@ -587,6 +604,7 @@ public class MyLinkedHashMap<K, V> extends MyHashMap<K, V> implements Map<K, V> 
             throw new ConcurrentModificationException();
     }
 
+    @Override
     public void replaceAll(BiFunction<? super K, ? super V, ? extends V> function) {
         if (function == null)
             throw new NullPointerException();
