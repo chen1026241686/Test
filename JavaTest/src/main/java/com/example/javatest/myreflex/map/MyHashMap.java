@@ -549,6 +549,7 @@ public class MyHashMap<K, V> extends MyAbstractMap<K, V> implements Map<K, V>, C
             n = tab.length;
         }
         //n是这个table的大小，并且是2的次幂，则n-1的二进制全都是11111，所以i肯定是小于等于n-1的
+        //这个时候其实i就是hashCode的后面几位
         i = (n - 1) & hash;
         p = tab[i];
         //如果这个位置上没有数据

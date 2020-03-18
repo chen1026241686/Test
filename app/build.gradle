@@ -12,11 +12,11 @@ android {
             storePassword 'pujikeji'
         }
     }
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         applicationId "com.example.customview"
         minSdkVersion 23
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 106
         versionName '1.2.3'
     }
